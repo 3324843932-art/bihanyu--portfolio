@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDENTIFIER | 身份认同探索</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   IDENTIFIER v2 — 身份认同探索
+   Light theme + noise grain + 绿粉蓝点缀
+   ═══════════════════════════════════════════ */
+
+:root {
+  --bg: #f2f0ed;
+  --bg-warm: #eae7e2;
+  --text: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-muted: #999;
+  --green: #7ec832;
+  --green-soft: rgba(126,200,50,0.12);
+  --pink: #d88fd8;
+  --pink-soft: rgba(216,143,216,0.12);
+  --blue: #6cb8d8;
+  --blue-soft: rgba(108,184,216,0.12);
+  --border: rgba(0,0,0,0.08);
+  --font-display: 'BubbledotICG-FinePos', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Noto Sans SC', 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'SF Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+
+/* ═══ NOISE GRAIN OVERLAY ═══ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 512px 512px;
+}
+
+/* ═══ CUSTOM CURSOR ═══ */
+.cursor-dot {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--text);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transition: transform 0.15s ease-out, opacity 0.15s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--text);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.3s, width 0.3s, height 0.3s, border-color 0.3s;
+  mix-blend-mode: difference;
+  opacity: 0.5;
+}
+.cursor-ring.hovering {
+  width: 56px; height: 56px;
+  border-color: var(--green);
+  opacity: 0.8;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(32px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes headlineFade {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes heroPhotoIn {
+  from { opacity:0; transform:scale(1.05); }
+  to { opacity:1; transform:scale(1); }
+}
+@keyframes heroCardIn {
+  from { opacity:0; transform:translateY(-50%) translateX(30px) rotate(3deg); }
+  to { opacity:1; transform:translateY(-50%) translateX(0) rotate(0deg); }
+}
+@keyframes revealBlur {
+  from { opacity:0; transform:translateY(22px) scale(0.98); filter:blur(6px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(0deg); }
+  50% { transform:translateY(-10px) rotate(1deg); }
+}
+@keyframes pulse-ring {
+  0% { transform:scale(1); opacity:0.6; }
+  100% { transform:scale(2.5); opacity:0; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  30% { transform: translate(1%, 3%); }
+  50% { transform: translate(-3%, 1%); }
+  70% { transform: translate(3%, -1%); }
+  90% { transform: translate(1%, 2%); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: all 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ═══ NAV ═══ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(24px) saturate(1.2);
+  background: rgba(242,240,237,0.75);
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--green); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 1.5px;
+  transition: color 0.3s;
+  position: relative;
+  text-transform: uppercase;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--text);
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ═══ HERO ═══ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  overflow: hidden;
+  background: var(--bg);
+}
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+}
+.hero-shape-1 {
+  width: 600px; height: 600px;
+  background: var(--green);
+  top: -200px; left: -100px;
+  filter: blur(80px);
+}
+.hero-shape-2 {
+  width: 400px; height: 400px;
+  background: var(--pink);
+  top: 10%; right: -50px;
+  filter: blur(60px);
+}
+.hero-shape-3 {
+  width: 350px; height: 350px;
+  background: var(--blue);
+  bottom: -100px; left: 30%;
+  filter: blur(70px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  animation: revealBlur 0.85s cubic-bezier(0.22,1,0.36,1) both;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0;
+  padding-left: clamp(24px, 6vw, 80px);
+  padding-right: clamp(24px, 6vw, 80px);
+  text-align: left;
+}
+.hero-overline {
+  animation: revealBlur 0.85s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.05s;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.hero-title {
+  margin-bottom: 28px;
+}
+.hero-title .line {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 11vw, 140px);
+  line-height: 1.08;
+  color: var(--text);
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 40px var(--bg), 0 0 80px var(--bg);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: headlineFade 0.85s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-title .line:nth-child(1) { animation-delay: 0.12s; }
+.hero-title .line:nth-child(2) { animation-delay: 0.3s; }
+.hero-title .line em {
+  font-style: italic;
+  color: var(--green);
+}
+.hero-tagline {
+  animation: revealBlur 0.85s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.4s;
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.hero-tagline strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 48px;
+  left: clamp(24px, 6vw, 80px);
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: float 4s ease-in-out infinite;
+}
+.hero-scroll span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+}
+.hero-scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--text), transparent);
+}
+
+/* ═══ MARQUEE ═══ */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.marquee-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+/* ═══ SECTION COMMON ═══ */
+.section {
+  padding: 140px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.gallery .section-label {
+  color: var(--green);
+}
+.gallery .section-title {
+  color: #fff;
+}
+.gallery .section-desc {
+  color: #aaa;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.section-desc {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: var(--text-secondary);
+  line-height: 1.9;
+  max-width: 560px;
+  font-weight: 300;
+}
+.section-divider {
+  width: 48px; height: 1px;
+  background: var(--text);
+  margin: 48px 0;
+  opacity: 0.2;
+}
+
+/* ═══ PHILOSOPHY ═══ */
+.philosophy {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+.philosophy-visual {
+  position: relative;
+}
+.philosophy-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.philosophy-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.philosophy-card-img {
+  width: 100%;
+  display: block;
+  filter: grayscale(0.15);
+  transition: filter 0.6s, transform 0.6s;
+}
+.philosophy-img-wrap:hover .philosophy-card-img {
+  filter: grayscale(0);
+  transform: scale(1.02);
+}
+.philosophy-quote {
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-top: 40px;
+  padding-left: 20px;
+  border-left: 2px solid var(--green);
+  color: var(--text-secondary);
+}
+.philosophy-quote strong { color: var(--text); font-weight: 600; }
+
+/* ═══ SYSTEM EXPLANATION ═══ */
+.system {
+  padding: 120px 48px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.system-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.system-layers {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  align-items: start;
+}
+.system-layer {
+  padding: 40px;
+  border-radius: 12px;
+  position: relative;
+}
+.system-layer-1 {
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+}
+.system-layer-2 {
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+}
+.system-layer-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+}
+.system-layer-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.system-layer-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.system-layer-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.system-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.system-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+.system-item-icon {
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ═══ THREE CAMPS ═══ */
+.camps {
+  padding: 120px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.camps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.camp-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.6s;
+}
+.camp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.08);
+}
+.camp-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.15);
+  transition: filter 0.5s, transform 0.6s;
+}
+.camp-card:hover img {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+.camp-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.camp-card:hover .camp-card-overlay { opacity: 1; }
+.camp-card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,0.7);
+}
+.camp-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+.camp-green .camp-card-tag { color: var(--green); }
+.camp-blue .camp-card-tag { color: var(--blue); }
+.camp-pink .camp-card-tag { color: var(--pink); }
+
+/* ═══ CARD GALLERY ═══ */
+.gallery {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0 60px;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+.gallery-header {
+  padding: 0 48px;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  color: var(--text);
+}
+.gallery-header .section-title {
+  color: var(--text);
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.5px;
+}
+.gallery-header .section-desc {
+  color: var(--text-secondary);
+}
+/* ═══ INFINITE CAROUSEL ═══ */
+.gallery-track-wrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+}
+.gallery-track-wrapper::before,
+.gallery-track-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.gallery-track-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.gallery-track-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.gallery-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 48px;
+  width: max-content;
+  will-change: transform;
+  animation: carouselScroll 15s linear infinite;
+}
+.gallery-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes carouselScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 12px)); }
+}
+.card-item {
+  flex: 0 0 280px;
+  perspective: 1200px;
+  cursor: pointer;
+  position: relative;
+}
+.card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  transform-style: preserve-3d;
+}
+.card-item.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  border: 2px solid #333;
+}
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  transform: rotateY(180deg);
+  background: #fff;
+  border: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  color: var(--text);
+}
+.card-back-shape {
+  margin-bottom: 16px;
+}
+.card-back-camp {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.card-back-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.card-back-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.gallery-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+.gallery-nav-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.gallery-nav-btn:hover {
+  border-color: var(--text);
+  background: var(--text);
+  color: #fff;
+}
+
+/* ═══ QUESTIONNAIRE ═══ */
+.questionnaire {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 120px 48px;
+}
+.q-phase-indicator {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 48px;
+  align-items: center;
+}
+.q-phase {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 8px 20px;
+  border-radius: 60px;
+  border: 1px solid var(--border);
+  transition: all 0.4s;
+}
+.q-phase.active {
+  color: var(--text);
+  border-color: var(--text);
+  background: var(--text);
+  color: #fff;
+}
+.q-phase.done {
+  color: var(--green);
+  border-color: var(--green);
+}
+.q-phase-line {
+  width: 32px; height: 1px;
+  background: var(--border);
+}
+.q-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 40px;
+}
+.q-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: all 0.3s;
+}
+.q-dot.active { background: var(--text); transform: scale(1.4); }
+.q-dot.done-green { background: var(--green); }
+.q-dot.done-pink { background: var(--pink); }
+.q-dot.done-blue { background: var(--blue); }
+
+.q-container {
+  max-width: 640px;
+  width: 100%;
+}
+.q-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+.q-text {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.q-text-en {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.2vw, 13px);
+  color: var(--text-muted);
+  margin-bottom: 44px;
+  font-style: italic;
+}
+.q-options {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.q-option {
+  padding: 14px 36px;
+  border: 1.5px solid var(--border);
+  border-radius: 60px;
+  background: #fff;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.q-option:hover {
+  border-color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.q-option.selected[data-val="yes"] {
+  border-color: var(--green);
+  background: var(--green-soft);
+  color: #3a7a10;
+}
+.q-option.selected[data-val="or"] {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  color: #8a4a8a;
+}
+.q-option.selected[data-val="no"] {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: #2a6a8a;
+}
+
+/* Result */
+/* ═══ CARD REVEAL RESULT ═══ */
+.q-result {
+  display: none;
+  width: 100%;
+  max-width: 960px;
+}
+.q-result.show {
+  display: block;
+}
+
+/* Overlay for card flip */
+.card-reveal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.card-reveal-overlay.visible {
+  opacity: 1;
+}
+
+/* The flipping card */
+.card-reveal-card {
+  width: 280px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+.card-reveal-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/16;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-reveal-card.flipped .card-reveal-inner {
+  transform: rotateY(180deg);
+}
+.card-reveal-front {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.card-reveal-front::after {
+  content: '?';
+  font-family: var(--font-display);
+  font-size: 72px;
+  color: rgba(255,255,255,0.15);
+}
+.card-reveal-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+.card-reveal-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Tap hint */
+.card-reveal-hint {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  white-space: nowrap;
+  animation: pulseHint 1.5s ease-in-out infinite;
+}
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Card expand animation */
+.card-reveal-card.expanded {
+  animation: cardExpand 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes cardExpand {
+  0% { transform: scale(1); position: fixed; z-index: 10000; }
+  100% { transform: scale(0.85); position: relative; z-index: 1; }
+}
+
+/* Result layout: card left, info right */
+.q-result-layout {
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+  padding: 0 48px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.q-result-layout.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.q-result-card-side {
+  flex: 0 0 280px;
+}
+.q-result-card-side {
+  display: flex;
+  justify-content: center;
+}
+.q-result-card-side img {
+  width: 100%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+.q-result-info-side {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+.q-result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 60px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.q-result-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.q-result-subtitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.q-result-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+.q-result-shape {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+.q-result-again {
+  padding: 14px 36px;
+  border: 1.5px solid var(--text);
+  border-radius: 60px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-transform: uppercase;
+}
+.q-result-again:hover {
+  background: var(--text);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .q-result-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 0 24px;
+  }
+  .q-result-card-side {
+    flex: none;
+    width: 220px;
+  }
+  .q-result-info-side {
+    text-align: center;
+  }
+}
+
+
+/* ═══ GROUP IDENTITY ═══ */
+.group-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.group-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+.group-diagram {
+  display: flex;
+  justify-content: center;
+}
+.group-svg {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ═══ RED DOT CURSOR ═══ */
+#groupDiagram {
+  position: relative;
+  cursor: none;
+}
+.group-svg {
+  transition: none;
+}
+.group-svg #gSquare,
+.group-svg #gTriangle,
+.group-svg #gCircle {
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: 200px 200px;
+}
+.group-svg #gSquare.active {
+  stroke: #E53E3E;
+  stroke-width: 3;
+  transform: scale(1.06);
+}
+.group-svg #gTriangle.active {
+  stroke: #E53E3E;
+  stroke-width: 3;
+  transform: scale(1.08);
+}
+.group-svg #gCircle.active {
+  stroke: #E53E3E;
+  stroke-width: 3;
+  transform: scale(1.12);
+}
+.red-cursor {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  background: #E53E3E;
+  border: 2.5px solid #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10002;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 10px rgba(229,62,62,0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  mix-blend-mode: normal;
+}
+.red-cursor.visible {
+  opacity: 1;
+}
+.group-legend {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.group-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.group-legend-icon {
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ═══ LIFETIME CD ═══ */
+.cd-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--bg-warm);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 48px;
+}
+.cd-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cd-disc {
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  position: relative;
+  animation: spin-slow 25s linear infinite;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+}
+.cd-disc img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.cd-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px; height: 50px;
+  background: var(--bg-warm);
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
+.cd-fragments {
+  position: absolute;
+  inset: -50px;
+}
+.cd-fragment {
+  position: absolute;
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  opacity: 0.15;
+  animation: float 5s ease-in-out infinite;
+}
+.cd-fragment:nth-child(1) {
+  background: var(--green);
+  top: 5%; left: 5%;
+  animation-delay: 0s;
+}
+.cd-fragment:nth-child(2) {
+  background: var(--pink);
+  top: 0%; right: 10%;
+  animation-delay: 1.2s;
+}
+.cd-fragment:nth-child(3) {
+  background: var(--blue);
+  bottom: 10%; left: 0%;
+  animation-delay: 2.4s;
+}
+.cd-fragment:nth-child(4) {
+  background: var(--green);
+  bottom: 5%; right: 5%;
+  animation-delay: 0.6s;
+}
+.cd-fragment:nth-child(5) {
+  background: var(--pink);
+  top: 35%; left: -8%;
+  animation-delay: 1.8s;
+}
+
+/* ═══ CLOSING ═══ */
+.closing {
+  min-height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 48px;
+  position: relative;
+}
+.closing-text { position: relative; z-index: 2; }
+.closing-quote {
+  font-size: clamp(22px, 3.5vw, 40px);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 28px;
+  color: var(--text-secondary);
+}
+.closing-quote strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.closing-author {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+.closing-footer {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.closing-footer-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--text), transparent);
+  opacity: 0.2;
+}
+.closing-footer-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .hero-photo { display: none; }
+  .philosophy-grid,
+  .group-grid,
+  .cd-grid,
+  .system-layers {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .system-layer-arrow {
+    min-height: auto;
+    padding: 16px 0;
+    transform: rotate(90deg);
+  }
+  .camps-grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav-links { display: none; }
+  .section, .camps, .system { padding: 80px 24px; }
+  .card-item { flex: 0 0 220px; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+@media (max-width: 600px) {
+  .nav { padding: 16px 20px; }
+  .q-options { flex-direction: column; align-items: center; }
+  .q-option { width: 80%; }
+}
+
+
+/* ═══ INTERVIEW SWITCHER ═══ */
+.interview-switcher {
+  position: relative;
+  overflow: hidden;
+}
+.interview-panel {
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.interview-panel.exit-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+.interview-panel.enter-right {
+  opacity: 0;
+  transform: translateX(60px);
+}
+.interview-panel.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.interview-panel.hidden {
+  display: none;
+}
+
+/* Arrow button */
+.interview-arrow {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+.interview-arrow-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  overflow: hidden;
+}
+.interview-arrow-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--text);
+  transform: scale(0);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.interview-arrow-btn:hover {
+  border-color: var(--text);
+  transform: translateX(4px);
+}
+.interview-arrow-btn:hover::before {
+  transform: scale(1);
+}
+.interview-arrow-btn svg {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s;
+}
+.interview-arrow-btn:hover svg {
+  color: #fff;
+}
+.interview-arrow-btn.pink:hover {
+  border-color: var(--pink);
+}
+.interview-arrow-btn.pink::before {
+  background: var(--pink);
+}
+
+.interview.pink-theme .interview-timeline::before {
+  background: linear-gradient(to bottom, transparent, var(--pink), transparent);
+}
+.interview.pink-theme .interview-dot-circle {
+  background: var(--pink);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--pink-glow);
+}
+.interview.pink-theme .interview-dot-circle::after {
+  border-color: var(--pink);
+}
+.interview.pink-theme .interview-answer::before {
+  color: var(--pink);
+}
+.interview.pink-theme .interview-satisfaction strong {
+  color: var(--pink);
+}
+.interview.pink-theme .interview-glow {
+  background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+}
+
+/* Blue theme */
+.interview.blue-theme .interview-timeline::before {
+  background: linear-gradient(to bottom, transparent, var(--blue), transparent);
+}
+.interview.blue-theme .interview-dot-circle {
+  background: var(--blue);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--blue-glow);
+}
+.interview.blue-theme .interview-dot-circle::after {
+  border-color: var(--blue);
+}
+.interview.blue-theme .interview-answer::before {
+  color: var(--blue);
+}
+.interview.blue-theme .interview-satisfaction strong {
+  color: var(--blue);
+}
+.interview.blue-theme .interview-glow {
+  background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
+}
+
+/* Pink theme overrides for Interview 2 */
+.interview.pink-theme .interview-timeline::before {
+  background: linear-gradient(to bottom, transparent, var(--pink), transparent);
+}
+.interview.pink-theme .interview-dot-circle {
+  background: var(--pink);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--pink-glow);
+}
+.interview.pink-theme .interview-dot-circle::after {
+  border-color: var(--pink);
+}
+.interview.pink-theme .interview-answer::before {
+  color: var(--pink);
+}
+.interview.pink-theme .interview-satisfaction strong {
+  color: var(--pink);
+}
+.interview.pink-theme .interview-glow {
+  background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+}
+
+/* Bilingual text */
+.interview-question-cn {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 4px;
+  font-style: italic;
+}
+.interview-answer-cn {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ═══ INTERVIEW TIMELINE ═══ */
+.interview {
+  padding: 120px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.interview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 60px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.interview-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.interview-member {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+}
+.interview-member span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.interview-satisfaction {
+  text-align: right;
+}
+.interview-satisfaction strong {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+  line-height: 1;
+}
+.interview-satisfaction span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Timeline track */
+.interview-timeline {
+  position: relative;
+  padding: 0 0 0 0;
+}
+.interview-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--green), transparent);
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+/* Each Q&A pair */
+.interview-qa {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.interview-qa.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.interview-qa:nth-child(odd) .interview-question {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 32px;
+}
+.interview-qa:nth-child(odd) .interview-answer {
+  grid-column: 3;
+  padding-left: 32px;
+}
+.interview-qa:nth-child(even) .interview-question {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 32px;
+}
+.interview-qa:nth-child(even) .interview-answer {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 32px;
+}
+
+/* Center dot */
+.interview-dot {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 8px;
+}
+.interview-dot-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--green-glow);
+}
+.interview-dot-circle::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  opacity: 0.3;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Question style */
+.interview-question {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Answer style */
+.interview-answer {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  position: relative;
+}
+.interview-answer::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--green);
+  opacity: 0.3;
+  position: absolute;
+  top: -16px;
+  line-height: 1;
+}
+.interview-qa:nth-child(odd) .interview-answer::before {
+  left: 32px;
+}
+.interview-qa:nth-child(even) .interview-answer::before {
+  right: 32px;
+  left: auto;
+}
+
+/* Green glow blobs (like the original) */
+.interview-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--green) 0%, transparent 70%);
+  opacity: 0.06;
+  pointer-events: none;
+  filter: blur(40px);
+}
+.interview-glow-1 { width: 300px; height: 300px; top: 20%; left: 10%; }
+.interview-glow-2 { width: 250px; height: 250px; top: 50%; right: 5%; }
+.interview-glow-3 { width: 200px; height: 200px; bottom: 10%; left: 30%; }
+
+@media (max-width: 768px) {
+  .interview-qa {
+    grid-template-columns: 20px 1fr;
+    gap: 0;
+  }
+  .interview-qa .interview-question,
+  .interview-qa:nth-child(odd) .interview-question,
+  .interview-qa:nth-child(even) .interview-question {
+    grid-column: 2;
+    text-align: left;
+    padding-left: 16px;
+    padding-right: 0;
+  }
+  .interview-qa .interview-answer,
+  .interview-qa:nth-child(odd) .interview-answer,
+  .interview-qa:nth-child(even) .interview-answer {
+    grid-column: 2;
+    text-align: left;
+    padding-left: 16px;
+    padding-right: 0;
+  }
+  .interview-dot {
+    grid-column: 1;
+    justify-content: center;
+  }
+  .interview-timeline::before { left: 10px; }
+}
+
+
+
+/* ═══ CAMPS SCROLL TRANSITION ═══ */
+.camps-transition {
+  position: relative;
+  height: 300vh;
+  overflow: visible;
+}
+.camps-transition-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  background: var(--bg);
+  z-index: 0;
+  will-change: background-color;
+  visibility: hidden;
+}
+.camps-transition-content {
+  position: relative;
+  z-index: 2;
+  height: 300vh;
+  pointer-events: none;
+}
+.camps-shapes {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+#tdParticleCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+.camps-shape {
+  filter: drop-shadow(0 0 60px currentColor);
+  will-change: transform;
+}
+.camps-shape-circle { color: #ff6eff; }
+.camps-shape-square { color: #00e5ff; }
+.camps-shape-triangle { color: #39ff14; }
+.camps-text {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ═══ CAMPS PARTICLES (legacy) ═══ */
+.camps-particles {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  margin-top: 48px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(126,200,50,0.03), rgba(216,143,216,0.03), rgba(108,184,216,0.03));
+}
+.camps-particles canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.camps-labels {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  z-index: 2;
+}
+.camps-label-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  backdrop-filter: blur(12px);
+  background: rgba(242,240,237,0.7);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+
+/* ═══ CAMP FILTER BUTTONS ═══ */
+.camp-filter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 8px 20px;
+  border-radius: 60px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  display: inline-flex;
+  align-items: center;
+}
+.camp-filter:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+.camp-filter.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+/* Card filtered state */
+.card-item.filtered-out {
+  display: none !important;
+}
+
+/* Card hover lift */
+.card-item:hover .card-inner {
+  transform: scale(1.02);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.card-item.flipped:hover .card-inner {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+/* ═══ PHILOSOPHY SECTION ANIMATIONS ═══ */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+</style>
+<meta name="description" content="IDENTIFIER 认同者：从访谈研究出发，以情绪、身份卡牌、群体关系与人生 CD 探索自我的交互设计项目。">
+<link rel="stylesheet" href="redesign.css">
+<link rel="stylesheet" href="../portfolio-directory.css">
+<link rel="stylesheet" href="../portfolio-unified.css">
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav id-nav" id="mainNav">
+  <a class="nav-logo" href="../index.html" aria-label="返回作品集首页">IDENTIFIER ↗</a>
+  <div class="nav-links">
+    <a href="#interview">采访</a>
+    <a href="#system">设计思路</a>
+    
+    <a href="#questionnaire">认识自己</a>
+    <a href="#gallery">卡牌</a>
+    <a href="#groupSection">群体</a>
+    <a href="#lifeCD">人生CD</a>
+  </div>
+</nav>
+
+<!-- Project introduction -->
+<section class="id-case id-hero" id="hero">
+ <div class="id-wrap">
+  <div class="id-hero-meta"><span>认同者 / IDENTITY EXPLORATION TOOLKIT</span><span>VISUAL COMMUNICATION · INTERACTIVE DESIGN</span></div>
+  <h1>IDENTIFIER<span class="id-title-dot" aria-hidden="true"></span></h1>
+  <div class="id-hero-grid">
+   <div class="id-hero-copy">
+    <h2>用颜色与形状，<br>探索自我认同。</h2>
+    <p>从三个真实人生的转折出发，把抽象的身份认同，变成可以触摸、选择和重新组合的游戏。通过颜色、形状与关系，认识此刻的自己。</p>
+    <div class="id-hero-actions"><a class="id-btn" href="#questionnaire">开始自我探索 <span>↗</span></a><a class="id-text-link" href="#interview">从故事开始 <span>↓</span></a></div>
+   </div>
+   <figure class="id-hero-visual"><img src="assets/editorial/hero.webp" width="1500" height="1778" alt="手持 IDENTIFIER 工具包：感性中立卡牌与彩色人生 CD 碎片" fetchpriority="high"><div class="id-photo-stamp"><strong>3 × 3</strong>COLOR / SHAPE</div><figcaption class="id-photo-label"><span>ALL ABOUT YOURSELF</span><span>一套可以参与的自我叙事</span></figcaption></figure>
+  </div>
+  <div class="id-hero-bottom"><span>01 自我探索　/　02 群体关系　/　03 人生 CD</span><span>从个人，到群体，再回到个人</span><span class="id-color-dots"><i></i><i></i><i></i>　SCROLL TO EXPLORE ↓</span></div>
+ </div>
+</section>
+
+<!-- ═══ INTERVIEW TIMELINE ═══ -->
+<section class="interview" id="interview">
+  <div class="interview-switcher" id="interviewSwitcher">
+    
+    <!-- ═══ Interview 1: Member 1 (Green) ═══ -->
+    <div class="interview-panel active" id="panel1">
+      <div class="interview-glow interview-glow-1"></div>
+      <div class="interview-glow interview-glow-2"></div>
+      <div class="interview-glow interview-glow-3"></div>
+      
+      <div class="interview-header">
+        <div>
+          <div class="interview-meta">Interview Record 01</div>
+          <div class="interview-member">Member 1<span>稳定情绪标准 · Stable Emotion Standard</span></div>
+        </div>
+        <div class="interview-satisfaction">
+          <strong>1/5</strong>
+          <span>Satisfaction Degree</span>
+        </div>
+      </div>
+
+      <div class="interview-timeline">
+        <div class="interview-qa">
+          <div class="interview-question">"First, I wonder were you happy when you were a child?"<div class="interview-question-cn">首先，我想知道你小时候快乐吗？</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-answer">Yes. It was good.<div class="interview-answer-cn">是的，挺好的。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-question">"Then how are you feeling now?"<div class="interview-question-cn">那你现在感觉怎么样？</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-answer">Disappointment, numb. A significant family member of me passed away last year. I can't adapt that.<div class="interview-answer-cn">失望、麻木。去年一位重要的家人去世了，我无法适应。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-question">"OH, I'm sorry. So how that thing influenced you?"<div class="interview-question-cn">我很抱歉。那这件事对你有什么影响？</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-answer">It let me realized that I don't wanna stay in school and live hard. I should live in a relaxing environment, a leisure life and stay with my family.<div class="interview-answer-cn">让我意识到我不想继续留在学校辛苦生活。我应该生活在一个轻松的环境里，过悠闲的日子，和家人在一起。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-question">"You are suffering right? You don't recognize your status as a student."<div class="interview-question-cn">你现在很痛苦对吧？你不认同自己学生的身份。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-answer">Yes. I just miss my family.<div class="interview-answer-cn">是的。我只是想念我的家人。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-question">"You OK?"<div class="interview-question-cn">你还好吗？</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-answer">I'm fine. thanks.<div class="interview-answer-cn">我没事，谢谢。</div></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:48px">
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:2px">AGE: 19 · SATISFACTION: 1/5</p>
+        <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8">
+          每个人面对身份转变时的态度各不相同。<br>
+          有人积极面对，有人选择逃避，有人保持沉默。
+        </p>
+      </div>
+
+      <div class="interview-arrow">
+        <button class="interview-arrow-btn" onclick="switchInterview(1)" aria-label="Next interview">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 4l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ Interview 2: Member 2 (Purple) ═══ -->
+    <div class="interview-panel hidden enter-right" id="panel2">
+      <div class="interview-glow interview-glow-1"></div>
+      <div class="interview-glow interview-glow-2"></div>
+      <div class="interview-glow interview-glow-3"></div>
+      
+      <div class="interview-header">
+        <div>
+          <div class="interview-meta">Interview Record 02</div>
+          <div class="interview-member">Member 2<span>稳定情绪标准 · Stable Emotion Standard</span></div>
+        </div>
+        <div class="interview-satisfaction">
+          <strong>4/5</strong>
+          <span>Satisfaction Degree</span>
+        </div>
+      </div>
+
+            <div class="interview-timeline">
+        <div class="interview-qa">
+          <div class="interview-answer">I'm not sure I can do this well. I'm busy.<div class="interview-answer-cn">我不确定我能做好。我很忙。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">" "<div class="interview-question-cn"> </div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">Let me think.<div class="interview-answer-cn">让我想想。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"It's OK."<div class="interview-question-cn">没关系的。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">Life was really hard when I was young. But now it's much better.<div class="interview-answer-cn">年轻时生活真的很艰难。但现在好多了。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"Don't like your life in the past?"<div class="interview-question-cn">不喜欢过去的生活吗？</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">No... The society was unstable then. I worked in a boring desk job, but I had to insist for money.<div class="interview-answer-cn">不……那时候社会不稳定。我做着无聊的文职工作，但为了钱不得不坚持。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"But now?"<br>"You living a happier life?"<div class="interview-question-cn">那现在呢？<br>你过得更幸福了吗？</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">Yes. I begin to enjoy myself after retirement. Either then or now that affects my mood is always family.<div class="interview-answer-cn">是的。退休后我开始享受生活。无论过去还是现在，影响我心情的始终是家人。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"It sounds great."<div class="interview-question-cn">听起来很棒。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">Yes but I should go now. For our dinner.<div class="interview-answer-cn">是的，我得走了。要去准备晚餐。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:48px">
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:2px">AGE: 73 · SATISFACTION: 4/5</p>
+        <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8">
+          跨越半个世纪的对话，从艰难到从容。<br>
+          家庭始终是贯穿一生的锚点。
+        </p>
+      </div>
+
+      <div class="interview-arrow" style="gap:12px;display:flex;justify-content:center">
+        <button class="interview-arrow-btn" onclick="switchInterview(0)" aria-label="Previous interview">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4l-6 6 6 6"/></svg>
+        </button>
+        <button class="interview-arrow-btn blue" onclick="switchInterview(2)" aria-label="Next interview">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 4l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ Interview 3: Member 3 (Blue) ═══ -->
+    <div class="interview-panel hidden enter-right" id="panel3">
+      <div class="interview-glow interview-glow-1"></div>
+      <div class="interview-glow interview-glow-2"></div>
+      <div class="interview-glow interview-glow-3"></div>
+      
+      <div class="interview-header">
+        <div>
+          <div class="interview-meta">Interview Record 03</div>
+          <div class="interview-member">Member 3<span>稳定情绪标准 · Stable Emotion Standard</span></div>
+        </div>
+        <div class="interview-satisfaction">
+          <strong>3/5</strong>
+          <span>Satisfaction Degree</span>
+        </div>
+      </div>
+
+      <div class="interview-timeline">
+        <div class="interview-qa">
+          <div class="interview-answer">I'm ready.<div class="interview-answer-cn">我准备好了。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"Very nice. So YOU think you living a happy life now?"<div class="interview-question-cn">很好。所以你觉得你现在过着幸福的生活？</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">WELL. I feel quite good now.<div class="interview-answer-cn">嗯。我现在感觉挺好的。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"Why you think so?"<div class="interview-question-cn">为什么这么觉得？</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">I got my master's degree last year, and I'm learning what I really interested in. Colleagues are also nice. The working environment is very comfortable.<div class="interview-answer-cn">我去年拿到了硕士学位，现在在学我真正感兴趣的东西。同事也很好。工作环境很舒适。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"Any dissatisfaction?"<div class="interview-question-cn">有什么不满意的地方吗？</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">I wonder why you do this interview. What do you want to know?<div class="interview-answer-cn">我想知道你为什么做这个采访。你想了解什么？</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question">"OH, for searching your acceptance level of your current identity."<div class="interview-question-cn">哦，是为了了解你对自己当前身份的认同程度。</div></div>
+        </div>
+        <div class="interview-qa">
+          <div class="interview-answer">OK. Maybe I have won my life now. Yes. I'm confident. BYE.<div class="interview-answer-cn">好吧。也许我已经赢了我的人生。是的。我很自信。再见。</div></div>
+          <div class="interview-dot"><div class="interview-dot-circle"></div></div>
+          <div class="interview-question"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:48px">
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:2px">AGE: 29 · SATISFACTION: 3/5</p>
+        <p style="font-size:14px;color:var(--text-secondary);margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8">
+          从求学到就业，身份的转变带来新的认同。<br>
+          自信源于对当下状态的接纳。
+        </p>
+      </div>
+
+      <div class="interview-arrow">
+        <button class="interview-arrow-btn" onclick="switchInterview(1)" aria-label="Previous interview">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Design rationale: continues directly from the untouched interview. -->
+<section class="id-case id-section" id="system">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">02 / FROM RESEARCH TO PLAY</span><span class="id-index">研究 → 设计转译</span></div>
+  <div class="id-research-intro"><h2>三个年龄，三段身份访谈</h2><div><p>学生、家庭成员、社会中的个体——同一个人，在不同关系和人生转折中，会有不同的自我感受。三段访谈让我把关注点放在：人如何理解经历，又如何看待自己的位置？</p><p class="id-pullquote">把「你属于哪一类」，转化为<br><strong>「你如何看待此刻的自己」。</strong></p></div></div>
+  <div class="id-reference-rows">
+   <article><span class="id-ref-num">01</span><div><span class="id-small">积极心理学 / Tal Ben-Shahar</span><h3>先看见内在感受</h3></div><p>从原稿中的幸福课程参考出发，把注意力引向个人对经历的感受。</p><div class="id-ref-output"><span class="id-mini-disc"></span><span>情绪波动 → 颜色</span></div></article>
+   <article><span class="id-ref-num">02</span><div><span class="id-small">时间线提问 / Dr. Tracey Marks</span><h3>把人生放回时间里</h3></div><p>以过去、现在、未来和重要转折组织问题，让回顾有迹可循。</p><div class="id-ref-output"><span class="id-time-line">·—·—·</span><span>经历 → 问卷与人生 CD</span></div></article>
+   <article><span class="id-ref-num">03</span><div><span class="id-small">群体与角色 / 原稿中的群体研究参考</span><h3>从「我」走向「我们」</h3></div><p>原稿借群体与角色研究提出问题：身处不同关系时，自我认同如何变化？</p><div class="id-ref-output"><span class="id-mini-shapes">○ △ □</span><span>社会关系 → 位置与距离</span></div></article>
+  </div>
+  <div class="id-reference-note"><span>以上为本项目的设计参考与转译思路。</span><button class="id-plain" data-art="references" data-caption="理论参考与设计概念 · 原始作品版面">查看原始研究版面 ↗</button></div>
+  <div class="id-journey" aria-label="游戏的三个章节">
+   <a href="#questionnaire"><span class="id-journey-number">01</span><div><h3>关于你自己</h3><p>情绪回顾 → 颜色选择 → 10 道身份题 → 卡牌</p></div><span>↗</span></a>
+   <a href="#groupSection"><span class="id-journey-number">02</span><div><h3>你在群体中的位置</h3><p>家人、朋友、陌生人 → 摆放关系标记</p></div><span>↗</span></a>
+   <a href="#lifeCD"><span class="id-journey-number">03</span><div><h3>我的人生 CD</h3><p>回望过去 → 感受现在 → 拼出期待的未来</p></div><span>↗</span></a>
+  </div>
+ </div>
+</section>
+
+<section class="id-case id-section id-play-section" id="questionnaire">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">03 / ALL ABOUT YOURSELF</span><span class="id-index">CHAPTER 01</span></div>
+  <div class="id-section-heading"><h2>自我认同问卷</h2><p>先用大小不同的圆点记录情绪，再选择颜色。接着完成原稿中的 10 道身份认同题，由出现最多的答案确定形状。<br><strong>颜色 × 形状 = 此刻的身份卡牌。</strong></p></div>
+  <div class="id-phase-bar"><span class="is-current" id="emotionPhase">01 情绪与颜色</span><span id="answerPhase">02 身份与形状</span><span id="resultPhase">03 我的卡牌</span></div>
+  <div id="emotionPanel" class="id-emotion-grid">
+   <div class="id-emotion-left"><span class="id-small">EMOTIONAL TRACE</span><h3>沿着时间，回看你的感受。</h3><p>选择五个时刻的情绪强度。圆点越大，代表这段经历带给你的波动越强；强度本身不区分快乐或难过。</p>
+    <div class="id-emotion-trace" id="emotionTrace"></div>
+    <span class="id-helper">拖动滑杆改变圆点大小 · 1 平缓 / 5 强烈</span>
+   </div>
+   <div class="id-emotion-right"><span class="id-small">CHOOSE YOUR COLOUR</span><h3>哪一种颜色，更贴近你？</h3><p>原作以三张透明色板帮助玩家观察情绪记录。这里保留自主观察与选择的过程：回看这些时刻，选择更贴近当前感受的阵营。</p>
+    <div class="id-colour-options" role="group" aria-label="选择当前的颜色阵营">
+     <button data-colour="emotional" aria-pressed="false"><i class="id-swatch" style="--swatch:var(--lime)"></i><span><strong>感性</strong><small>Emotional</small></span><span class="id-choice-mark">↗</span></button>
+     <button data-colour="rational" aria-pressed="false"><i class="id-swatch" style="--swatch:var(--aqua)"></i><span><strong>理性</strong><small>Rational</small></span><span class="id-choice-mark">↗</span></button>
+     <button data-colour="neutral" aria-pressed="false"><i class="id-swatch" style="--swatch:var(--lilac)"></i><span><strong>中立</strong><small>Neutral</small></span><span class="id-choice-mark">↗</span></button>
+    </div>
+    <div class="id-choice-status" id="colourStatus" aria-live="polite">请选择一个颜色，继续探索身份形状。</div>
+    <button class="id-btn" id="beginQuestions" disabled>进入 10 道身份题 <span>→</span></button>
+   </div>
+  </div>
+  <div class="id-quiz-grid" id="answerPanel" hidden>
+   <div class="id-answer-sheet"><div class="id-sheet-top"><span>SELF-IDENTITY</span><span id="sheetColour"></span></div><svg id="answerMap" viewBox="0 0 360 390" role="img" aria-label="十道题的答案记录"></svg><div class="id-answer-counts" id="answerCounts"></div><span class="id-helper">□ 是 / 认同　○ 中立　△ 否 / 不认同</span></div>
+   <div class="id-question-area"><div class="id-question-progress" id="questionProgress"></div><div id="questionContent" aria-live="polite"></div><div class="id-quiz-navigation"><button class="id-plain" id="previousQuestion">← 上一步</button><button class="id-btn" id="nextQuestion" disabled>下一题 →</button></div><p class="id-helper">全部 10 题共同确定形状；颜色沿用上一阶段的选择。</p></div>
+  </div>
+  <div id="quizResult" class="id-result-grid" hidden aria-live="polite"></div>
+  <div class="id-play-footnote"><span>这是原作的网页体验，用于自我观察与表达。</span><button class="id-plain" data-art="self-identity" data-caption="身份认同问卷 · 原始 10 题与形状规则">查看原始问卷 ↗</button></div>
+ </div>
+</section>
+
+<section class="id-case id-section id-gallery-section" id="gallery">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">04 / THE IDENTITY ATLAS</span><span class="id-index">3 COLOURS × 3 SHAPES</span></div>
+  <div class="id-section-heading"><h2>九种色彩与形状组合</h2><p>颜色描述情绪倾向，形状记录身份立场。两个维度彼此独立：每一种颜色，都可以拥有三种形状。点击卡牌，翻看它的组合含义。</p></div>
+  <div class="id-gallery-tools"><div class="id-gallery-filters" role="group" aria-label="按颜色筛选卡牌"><button data-filter="all" aria-pressed="true">全部 09</button><button data-filter="emotional" aria-pressed="false">感性 03</button><button data-filter="rational" aria-pressed="false">理性 03</button><button data-filter="neutral" aria-pressed="false">中立 03</button></div><span class="id-helper">点击翻牌 ↻</span></div>
+  <div class="id-matrix-head" aria-hidden="true"><span>○ 中立 / NEUTRAL</span><span>△ 不认同 / NON-IDENTITY</span><span>□ 认同 / IDENTITY</span></div>
+  <div class="id-card-matrix" id="cardMatrix"></div>
+  <div class="id-gallery-caption"><span>插画、色彩与几何形状构成统一的卡牌语言。</span><span>你的状态可以改变，卡牌也可以重新选择。</span></div>
+ </div>
+</section>
+
+<section class="id-case id-section" id="groupSection">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">05 / YOUR POSITION IN THE GROUP</span><span class="id-index">CHAPTER 02</span></div>
+  <div class="id-group-layout">
+   <div class="id-group-copy"><h2>群体关系中的自我</h2><p>第一章观察个人身份，第二章把视角转向群体。黑点是「我」；圆、三角与方框分别表示家人、朋友和陌生人。此处的形状用于区分关系，与上一章的答案符号承担不同含义。</p><div class="id-relation-options" role="group" aria-label="选择要标记的关系"><button data-relation="family" aria-pressed="true"><span>○</span>家人<small>Family</small></button><button data-relation="friend" aria-pressed="false"><span>△</span>朋友<small>Friend</small></button><button data-relation="stranger" aria-pressed="false"><span>□</span>陌生人<small>Stranger</small></button></div><p id="relationPrompt">想起一位家人。在右侧图中，标记你感受到的距离。</p><div class="id-group-actions"><button class="id-plain" id="resetRelations">↺ 重新摆放</button><button class="id-plain" data-art="group-identity" data-caption="群体身份认同 · 原始几何关系图">查看原始规则 ↗</button></div><p class="id-helper">标记用于表达主观距离，没有标准位置。</p></div>
+   <div class="id-relation-board"><div class="id-sheet-top"><span>RELATIONSHIP MAP</span><span>○ → △ → □</span></div><svg id="relationMap" viewBox="0 0 480 470" tabindex="0" role="application" aria-label="关系地图：点击放置标记，或用方向键移动所选关系标记" aria-describedby="relationHelp"><rect x="40" y="30" width="400" height="400" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M240 30L40 430H440Z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="240" cy="306.4" r="123.6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="240" cy="306.4" r="7" fill="currentColor"/><text x="240" y="282" text-anchor="middle" font-size="14">ME</text><g id="relationMarkers"></g></svg><div class="id-relation-status" id="relationStatus" aria-live="polite">选择关系，再点击图面放置标记。</div><span class="id-helper" id="relationHelp">点击或拖动标记 · 键盘聚焦图面后，用方向键微调</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="id-case id-section id-cd-section" id="lifeCD">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">06 / MY LIFETIME CD</span><span class="id-index">CHAPTER 03</span></div>
+  <div class="id-section-heading"><h2>人生 CD：回顾与重组</h2><p>原作以 CD 和碎片承载对人生的回顾与期待。把三个章节收集到的感受，转化为一张个人拼图：移动、旋转、重新组合，让它成为你想要的样子。</p></div>
+  <div class="id-cd-layout">
+   <div class="id-cd-workspace"><div class="id-sheet-top"><span>A LIFE, IN PIECES</span><span id="cdSelectionLabel">FRAGMENT 01 / 09</span></div><svg id="cdCanvas" viewBox="0 0 780 530" role="group" aria-label="可移动和旋转的九块人生 CD 碎片"><defs><pattern id="cdDotGrid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#74786b" opacity=".22"/></pattern><radialGradient id="cdLime"><stop stop-color="#f2f0ed"/><stop offset=".38" stop-color="#c3ed49"/><stop offset=".76" stop-color="#a7dce3"/><stop offset="1" stop-color="#c3ed49"/></radialGradient><radialGradient id="cdAqua"><stop stop-color="#f2f0ed"/><stop offset=".38" stop-color="#a7dce3"/><stop offset=".76" stop-color="#dfb7ed"/><stop offset="1" stop-color="#a7dce3"/></radialGradient><radialGradient id="cdLilac"><stop stop-color="#f2f0ed"/><stop offset=".38" stop-color="#dfb7ed"/><stop offset=".76" stop-color="#a7dce3"/><stop offset="1" stop-color="#dfb7ed"/></radialGradient></defs><rect width="780" height="530" fill="#e9ebe3"/><rect width="780" height="530" fill="url(#cdDotGrid)"/><circle cx="390" cy="265" r="195" fill="none" stroke="#919589" stroke-width="1" stroke-dasharray="3 7" opacity=".45"/><g id="cdFragments"></g></svg><div class="id-canvas-caption"><span>拖动碎片 · 方向键移动 · R 键旋转</span><span>PAST / PRESENT / FUTURE</span></div></div>
+   <div class="id-cd-controls"><span class="id-small">COMPOSE YOUR OWN</span><h3>未来部分的自由组合</h3><p>点击一块碎片，赋予它一个时间视角，再调整它的位置。形状与色彩的组合由你决定。</p><div class="id-time-options" role="group" aria-label="为所选碎片选择时间主题"><button data-time="past" aria-pressed="true">过去<small>Past</small></button><button data-time="present" aria-pressed="false">现在<small>Now</small></button><button data-time="future" aria-pressed="false">未来<small>Future</small></button></div><p id="cdTimePrompt" class="id-cd-prompt">过去：哪些经历，塑造了现在的你？</p><div class="id-cd-buttons"><button class="id-btn id-btn-light" id="rotateFragment">旋转 30° ↻</button><button class="id-btn id-btn-light" id="resetComposition">恢复初始拼图 ↺</button></div><button class="id-btn" id="saveComposition">保存我的人生 CD <span>↓</span></button><span class="id-helper" id="saveStatus" aria-live="polite">保存为 SVG 图片</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="id-case id-section id-archive-section" id="archive">
+ <div class="id-wrap">
+  <div class="id-topline"><span class="id-eyebrow">07 / FROM PAPER TO EXPERIENCE</span><span class="id-index">作品全貌</span></div>
+  <div class="id-section-heading"><h2>工具包与参与流程</h2><p>问卷、透明色板、九张身份卡、关系图与 CD 碎片，共同组成三章游戏。下面保留原始设计版面，将体验重新放回完整作品中阅读。</p></div>
+  <figure class="id-archive-figure"><button data-art="game-overview" data-caption="游戏全貌 · 三个章节与实体玩法" aria-label="放大查看游戏全貌"><img src="assets/editorial/game-overview.webp" loading="lazy" width="3600" height="1232" alt="IDENTIFIER 三章游戏全景：关于你自己、群体中的位置、我的人生 CD"><span class="id-enlarge">查看完整流程 ↗</span></button><figcaption><span>01 — 游戏系统 / Game system</span><span>问卷 · 卡牌 · 关系图 · CD 碎片</span></figcaption></figure>
+  <figure class="id-archive-figure"><button data-art="experience" data-caption="应用展示 · 情绪回顾、身份问卷与九张卡牌" aria-label="放大查看应用展示"><img src="assets/editorial/experience.webp" loading="lazy" width="3600" height="1232" alt="手持实体工具包以及手机和平板上的情绪记录、色板、身份测试和九张卡牌"><span class="id-enlarge">查看应用展示 ↗</span></button><figcaption><span>02 — 实体与数字体验 / Physical & digital</span><span>同一套视觉语言，不同的参与方式</span></figcaption></figure>
+ </div>
+</section>
+<section class="id-case id-ending" id="closing"><div class="id-wrap"><span class="id-eyebrow">IDENTITY IS AN ONGOING STORY</span><h2>IDENTIFIER<br><span>持续变化的自我认同</span></h2><div class="id-ending-bottom"><p>从个人，到群体，再回到个人。<br>这一次的答案，留给此刻的你。</p><a class="id-text-link" href="#questionnaire">再探索一次 ↗</a><a class="id-text-link" href="../index.html">回到作品集 ↗</a></div></div></section>
+<section class="portfolio-project-directory" aria-labelledby="project-directory-title-4"><div class="portfolio-project-directory__inner"><div class="portfolio-project-directory__heading"><h2 id="project-directory-title-4">作品目录</h2><span>SELECT ANOTHER PROJECT</span></div><nav class="portfolio-project-directory__grid" aria-label="其他作品"><a class="portfolio-project-directory__item" href="../project1.html"><span class="portfolio-project-directory__number">01</span><strong class="portfolio-project-directory__name">人类之子·AIGC短片</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project2.html"><span class="portfolio-project-directory__number">02</span><strong class="portfolio-project-directory__name">妙斋果酒品牌</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project3.html"><span class="portfolio-project-directory__number">03</span><strong class="portfolio-project-directory__name">羽境 FEALAND</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="index.html" aria-current="page"><span class="portfolio-project-directory__number">04</span><strong class="portfolio-project-directory__name">IDENTIFIER 卡牌游戏</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project5/index.html"><span class="portfolio-project-directory__number">05</span><strong class="portfolio-project-directory__name">LUMINOVA 疗愈IP设计</strong><span class="portfolio-project-directory__arrow">↗</span></a></nav></div></section>
+<footer class="id-footer"><span>IDENTIFIER / 认同者</span><span>毕涵昱 · 视觉传达与交互设计</span><a href="#hero">BACK TO TOP ↑</a></footer>
+<dialog class="id-dialog" id="artDialog" aria-labelledby="artCaption"><div class="id-dialog-toolbar"><h2 id="artCaption">原始作品版面</h2><div><button id="artZoom" type="button">放大阅读 ＋</button><button id="artClose" type="button" aria-label="关闭原始作品版面">关闭 ×</button></div></div><div class="id-dialog-scroll" id="artScroll"><img id="artImage" alt=""></div></dialog>
+
+<script>
+// ═══ CUSTOM CURSOR ═══
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, dx = 0, dy = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx - 4 + 'px';
+  dot.style.top = my - 4 + 'px';
+});
+
+function animateCursor() {
+  dx += (mx - dx) * 0.15;
+  dy += (my - dy) * 0.15;
+  ring.style.left = dx - 18 + 'px';
+  ring.style.top = dy - 18 + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover effect on interactive elements
+document.querySelectorAll('a, button, .card-item, .camp-card, .gallery-nav-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+});
+
+
+
+// ═══ SCROLL REVEAL ═══
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Interview panel switch
+let currentPanel = 0;
+function switchInterview(target) {
+  const panels = document.querySelectorAll('.interview-panel');
+  const current = panels[currentPanel];
+  const next = panels[target];
+  
+  // Exit animation
+  current.classList.remove('active');
+  current.classList.add(target > currentPanel ? 'exit-left' : 'enter-right');
+  
+  setTimeout(() => {
+    current.classList.add('hidden');
+    current.classList.remove('exit-left', 'enter-right');
+    
+    // Prepare next
+    next.classList.remove('hidden');
+    next.classList.add(target > currentPanel ? 'enter-right' : 'exit-left');
+    
+    // Force reflow
+    next.offsetHeight;
+    
+    // Enter animation
+    next.classList.remove('enter-right', 'exit-left');
+    next.classList.add('active');
+    
+    // Toggle themes
+    const section = document.getElementById('interview');
+    section.classList.remove('pink-theme', 'blue-theme');
+    if (target === 1) section.classList.add('pink-theme');
+    if (target === 2) section.classList.add('blue-theme');
+    
+    currentPanel = target;
+    
+    // Re-observe interview-qa elements in new panel
+    next.querySelectorAll('.interview-qa').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 400);
+}
+
+// Interview timeline scroll reveal
+const interviewObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.interview-qa').forEach(el => interviewObserver.observe(el));
+
+// ═══ NAV SCROLL ═══
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  const st = window.scrollY;
+  nav.style.transform = (st > lastScroll && st > 120) ? 'translateY(-100%)' : 'translateY(0)';
+  lastScroll = st;
+});
+
+// ═══ SMOOTH NAV ═══
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(link.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ═══ PARALLAX SHAPES ═══
+window.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5);
+  const y = (e.clientY / window.innerHeight - 0.5);
+  document.querySelectorAll('.hero-shape').forEach((s, i) => {
+    const f = (i + 1) * 15;
+    s.style.transform = `translate(${x * f}px, ${y * f}px)`;
+  });
+});
+
+
+
+
+
+
+
+
+
+</script>
+<script src="redesign.js" defer></script>
+<script src="../portfolio-ripple.js" defer></script>
+</body>
+</html>

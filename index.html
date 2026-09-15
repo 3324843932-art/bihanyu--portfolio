@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>毕涵昱 Hanyu Bi | 视觉设计作品集</title>
+<meta name="description" content="毕涵昱的视觉设计作品集：AIGC 影像、品牌视觉与 IP 设计。由短片《人类之子》开启。">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;font-family:-apple-system,sans-serif;background:#000;cursor:none}
+.hint-text{position:fixed;top:30px;left:50%;transform:translateX(-50%);z-index:3100;color:#4a4a4a;font-size:14px;letter-spacing:2px;text-align:center;transition:opacity 0.5s,visibility 0.5s;line-height:1.8}
+.hint-text.hide{opacity:0;visibility:hidden}
+.hint-text span{animation:hintBlink 3s infinite}
+.hint-text .cn{margin-right:12px}
+@keyframes hintBlink{0%,100%{opacity:0.4}50%{opacity:0.9}}
+.menu-btn{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);z-index:3100;padding:14px 44px;background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.18);color:#5a5a5a;font-size:13px;letter-spacing:3px;border-radius:40px;cursor:none;transition:all 0.3s}
+.menu-btn.hide{opacity:0;visibility:hidden}
+.menu-btn:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);transform:translateX(-50%) scale(1.05)}
+.wave-cursor{position:fixed;width:36px;height:36px;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);font-size:28px;line-height:36px;text-align:center;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))}
+.cursor{position:fixed;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,rgba(168,224,99,1) 0%,rgba(168,224,99,0.4) 50%,rgba(168,224,99,0) 70%);pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 20px rgba(168,224,99,0.6),0 0 40px rgba(168,224,99,0.3)}
+#vc{position:fixed;top:0;left:0;width:100vw;height:100vh}
+#mv{width:100%;height:100%;object-fit:cover}
+.name-tag{position:fixed;top:30px;left:30px;z-index:3100;color:rgba(255,255,255,0.9);opacity:0;visibility:hidden;transition:opacity 0.5s,visibility 0.5s}
+.name-tag.show{opacity:1;visibility:visible}
+.name-tag .en{font-size:16px;font-weight:300;letter-spacing:1px;display:block}
+.name-tag .cn{font-size:22px;font-weight:400;letter-spacing:2px;margin-top:2px}
+#cb{position:fixed;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.4) 40%,rgba(255,255,255,0) 70%);border:none;cursor:none;display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(255,255,255,0.6),0 0 80px rgba(255,255,255,0.3);z-index:1000;opacity:0;transition:opacity 0.3s;transform:translate(-50%,-50%)}
+#cb.show{opacity:1}
+#cb::after{content:'';width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.8);box-shadow:0 0 20px rgba(255,255,255,0.8)}
+#ov{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(90deg,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.3) 30%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0.85) 100%);opacity:0;visibility:hidden;transition:opacity 0.5s,visibility 0.5s;z-index:2000}
+#ov.a{opacity:1;visibility:visible}
+#dr{position:fixed;left:-350px;top:0;width:350px;height:100vh;padding:60px 40px;z-index:3000;transition:left 0.5s cubic-bezier(0.4,0,0.2,1);background:transparent;display:flex;flex-direction:column;justify-content:center}
+#dr.a{left:0}
+#dr h2{color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:2px;margin-bottom:30px;font-weight:300;text-transform:uppercase}
+.ni{display:block;color:rgba(255,255,255,0.6);font-size:20px;font-weight:300;padding:10px 0;border-bottom:none;text-decoration:none;transition:all 0.3s;letter-spacing:0.5px;line-height:1.2;white-space:nowrap}
+.ni:hover{color:rgba(255,255,255,0.9);transform:translateX(5px)}
+.ni.bold{color:rgba(255,255,255,0.9);font-weight:500}
+.nn{font-size:14px;font-weight:300;margin-right:6px}
+.ni-sub{font-size:14px;font-weight:300;display:block;margin-top:2px;opacity:0.6}
+#pp{position:fixed;right:-400px;top:0;width:400px;height:100vh;padding:60px 50px;z-index:3000;transition:right 0.5s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent}
+#pp.a{right:0}
+.av{width:180px;height:180px;border-radius:50%;overflow:hidden;margin-bottom:24px;box-shadow:0 4px 40px rgba(0,0,0,0.4)}
+.av img{width:100%;height:100%;object-fit:cover}
+.nm{color:#fff;font-size:20px;margin-bottom:6px;font-weight:400}
+.tt{color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:3px;margin-bottom:30px}
+.cbtn{padding:14px 36px;background:transparent;color:rgba(255,255,255,0.8);font-weight:400;font-size:13px;letter-spacing:1px;border:1px solid rgba(255,255,255,0.3);border-radius:30px;transition:all 0.3s;cursor:none}
+.cbtn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.5)}
+#jp{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;max-width:80vw;z-index:3000;opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;perspective:1000px}
+#jp.a{opacity:1;visibility:visible}
+#jp .card{border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);transform-style:preserve-3d}
+#jp.a .card{animation:cardReveal 0.8s cubic-bezier(0.4,0,0.2,1) forwards}
+@keyframes cardReveal{0%{transform:rotateY(180deg) scale(0.5);opacity:0}60%{transform:rotateY(-15deg) scale(1.05);opacity:1}100%{transform:rotateY(0deg) scale(1);opacity:1}}
+#jp img{width:100%;height:auto;display:block}
+.card-hint{position:absolute;top:-40px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.7);font-size:12px;letter-spacing:1px;white-space:nowrap;opacity:0;transition:opacity 0.5s 0.8s}
+#jp.a .card-hint{opacity:1}
+.card-hint::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(168,224,99,0.8);margin-right:8px;vertical-align:middle;animation:hintPulse 2s infinite}
+@keyframes hintPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+.apple-btn{position:absolute;bottom:28%;left:50%;transform:translateX(-50%);width:80px;height:80px;border-radius:50%;cursor:none;background:radial-gradient(circle,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0) 70%);border:none;box-shadow:0 0 30px rgba(255,255,255,0.5);transition:all 0.3s;display:flex;align-items:center;justify-content:center}
+.apple-btn:hover{transform:translateX(-50%) scale(1.1);box-shadow:0 0 50px rgba(255,255,255,0.7)}
+.apple-btn::after{content:'';width:12px;height:12px;border-radius:50%;background:rgba(168,224,99,0.9);box-shadow:0 0 15px rgba(168,224,99,0.8)}
+.cl{position:fixed;top:30px;right:30px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);cursor:none;font-size:18px;color:rgba(255,255,255,0.6);z-index:3100;transition:all 0.3s;opacity:0;visibility:hidden}
+#ov.a~.cl{opacity:1;visibility:visible}
+.cl:hover{background:rgba(255,255,255,0.2);color:#fff}
+#about{--about-bg:#101415;--about-panel:#171c1d;--about-panel-2:#1d2324;--about-text:#f2f4ef;--about-muted:#a3aaa4;--about-line:rgba(242,244,239,.12);--about-accent:#a8e063;position:fixed;inset:0;background:var(--about-bg);color:var(--about-text);z-index:5000;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s;overflow:hidden;cursor:default}
+#about.a{opacity:1;visibility:visible}
+#about .back-btn{position:fixed;top:24px;right:28px;width:48px;height:48px;padding:0;background:rgba(23,28,29,.86);border:1px solid var(--about-line);color:var(--about-text);font-size:22px;cursor:pointer;border-radius:50%;z-index:5100;transition:transform .25s ease,background .25s ease,border-color .25s ease;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#about .back-btn:hover{transform:rotate(-8deg) scale(1.04);background:#222929;border-color:rgba(168,224,99,.55)}
+#about .back-btn:active{transform:scale(.96)}#about .back-btn:focus-visible{outline:2px solid var(--about-accent);outline-offset:4px}
+.about-bg{position:fixed;inset:0;background:radial-gradient(circle at 14% 8%,rgba(168,224,99,.1),transparent 25%),radial-gradient(circle at 90% 72%,rgba(168,224,99,.05),transparent 28%),var(--about-bg);z-index:0;pointer-events:none}
+.about-bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px);background-size:100% 64px;mask-image:linear-gradient(to bottom,black,transparent 75%);pointer-events:none}
+#liquid-canvas{display:none}
+.about-content{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 52px 100px;display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:clamp(48px,7vw,110px);height:100vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(168,224,99,.45) transparent}
+.about-content::-webkit-scrollbar{width:6px}.about-content::-webkit-scrollbar-thumb{background:rgba(168,224,99,.4);border-radius:10px}
+.about-left{position:sticky;top:0;align-self:start;min-height:100vh;padding:72px 0 56px;display:flex;flex-direction:column;opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+#about.a .about-left{opacity:1;transform:translateY(0)}
+.about-photo{position:relative;width:100%;aspect-ratio:4/5;border-radius:14px;overflow:hidden;margin-bottom:30px;background:#202526;box-shadow:0 28px 80px rgba(0,0,0,.34)}
+.about-photo::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}.about-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.04)}
+.about-kicker{color:var(--about-accent);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}.about-name{font-size:clamp(42px,4vw,62px);line-height:.95;font-weight:650;letter-spacing:-.055em;margin-bottom:10px}.about-name-en{color:var(--about-muted);font-size:13px;letter-spacing:.16em;margin-bottom:28px}.about-role{font-size:18px;line-height:1.45;font-weight:520;max-width:18ch;margin-bottom:22px}.about-desc{color:var(--about-muted);font-size:13px;line-height:1.8;max-width:34ch;margin-bottom:26px}.about-contact{display:grid;gap:8px;margin-top:auto;padding-top:26px;border-top:1px solid var(--about-line);font-size:12px;color:var(--about-muted)}.about-contact a{color:inherit;text-decoration:none;transition:color .2s ease}.about-contact a:hover{color:var(--about-accent)}
+.about-right{display:flex;flex-direction:column;gap:84px;padding:110px 0 30vh;opacity:0;transform:translateY(38px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .12s,transform .8s cubic-bezier(.16,1,.3,1) .12s}#about.a .about-right{opacity:1;transform:translateY(0)}
+.about-intro{max-width:830px}.about-intro h2{font-size:clamp(38px,5vw,74px);line-height:1.06;letter-spacing:-.055em;font-weight:560;max-width:13ch;margin-bottom:26px}.about-intro h2 strong{color:var(--about-accent);font-weight:650}.about-intro p{max-width:62ch;color:#c0c6c0;font-size:16px;line-height:1.8}.about-section{max-width:900px}.about-section h3{font-size:25px;line-height:1.2;font-weight:560;letter-spacing:-.025em;margin-bottom:30px}
+.focus-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.focus-card{min-height:190px;padding:28px;border-radius:14px;background:var(--about-panel);border:1px solid var(--about-line);display:flex;flex-direction:column;justify-content:space-between}.focus-card.primary{grid-row:span 2;min-height:394px;background:linear-gradient(150deg,rgba(168,224,99,.17),rgba(23,28,29,.96) 58%)}.focus-card h4{font-size:clamp(24px,3vw,42px);line-height:1.05;letter-spacing:-.04em}.focus-card p{color:var(--about-muted);font-size:13px;line-height:1.7;max-width:38ch}.focus-mark{font-size:11px;color:var(--about-accent);letter-spacing:.12em;text-transform:uppercase}.skill-cloud{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}.skill-chip{padding:9px 13px;border:1px solid var(--about-line);border-radius:14px;color:#c8cec8;font-size:12px;background:rgba(255,255,255,.025)}.skill-chip.emphasis{color:#13200c;background:var(--about-accent);border-color:var(--about-accent);font-weight:650}
+.edu-block{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;padding:30px;border-radius:14px;background:var(--about-panel)}.edu-school{font-size:24px;font-weight:620;letter-spacing:-.025em}.edu-major{color:#c4cac4;font-size:15px;margin-top:7px}.edu-year{text-align:right;color:var(--about-accent);font-size:13px}.edu-degree{display:block;color:var(--about-muted);margin-top:5px}.edu-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.edu-stat{padding-top:18px;border-top:1px solid var(--about-line)}.edu-stat b{display:block;font-size:22px;margin-bottom:6px}.edu-stat span{color:var(--about-muted);font-size:12px;line-height:1.5}
+.timeline{display:grid;gap:16px}.exp-item{padding:28px 30px;border-radius:14px;background:var(--about-panel);border:1px solid transparent;transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,border-color .3s ease}.exp-item:first-child{background:linear-gradient(135deg,rgba(168,224,99,.11),var(--about-panel) 55%);border-color:rgba(168,224,99,.22)}.exp-item:hover{transform:translateY(-3px);background:var(--about-panel-2);border-color:var(--about-line)}.exp-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:start;margin-bottom:17px}.exp-company{font-size:18px;font-weight:610;line-height:1.45;letter-spacing:-.015em}.exp-role{display:block;color:var(--about-muted);font-size:12px;font-weight:400;margin-top:5px}.exp-time{color:var(--about-accent);font-size:12px;white-space:nowrap;padding-top:4px}.exp-desc{display:grid;gap:9px;color:#b7beb7;font-size:13px;line-height:1.75}.exp-desc p{position:relative;padding-left:17px}.exp-desc p::before{content:"";position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--about-accent)}.exp-desc strong{color:var(--about-text);font-weight:560}
+.awards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.award-item{min-height:120px;padding:22px;border-radius:14px;background:var(--about-panel);display:grid;grid-template-columns:1fr auto;gap:18px;align-content:space-between}.award-item.featured{background:rgba(168,224,99,.13)}.award-title{font-size:14px;line-height:1.55}.award-level{color:var(--about-muted);font-size:11px}.award-result{color:var(--about-accent);font-size:13px;text-align:right}.award-date{color:var(--about-muted);font-size:11px;text-align:right}
+@media(max-width:900px){#about .back-btn{top:14px;right:14px}.about-content{display:block;padding:0 18px 88px}.about-left{position:relative;min-height:auto;padding:72px 0 52px}.about-photo{width:min(72vw,310px)}.about-contact{margin-top:10px}.about-right{padding:12px 0 18vh;gap:68px}.focus-grid{grid-template-columns:1fr}.focus-card.primary{grid-row:auto;min-height:260px}.edu-block{grid-template-columns:1fr}.edu-year{text-align:left}.edu-stats{grid-template-columns:1fr}.awards-grid{grid-template-columns:1fr}.exp-header{grid-template-columns:1fr}.exp-time{padding-top:0}}
+@media(prefers-reduced-motion:reduce){#about,#about *{scroll-behavior:auto!important;animation:none!important;transition:none!important}.about-left,.about-right{opacity:1;transform:none}.exp-item:hover{transform:none}}
+</style>
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="portfolio-unified.css">
+</head>
+<body>
+<main id="home" aria-label="毕涵昱作品集封面">
+<div id="vc"><video id="mv" poster="首页资源/home-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="人类之子短片片段"><source src="首页-web.m4v" type="video/mp4"></video></div>
+<header class="home-header">
+<a class="identity" href="index.html" aria-label="毕涵昱作品集首页"><strong>毕涵昱 <span>Hanyu Bi</span></strong><small>视觉设计作品集</small></a>
+<nav class="home-nav" aria-label="主导航"><button onclick="showMenuOnly()">作品目录 <span>↗</span></button><button class="about-nav" onclick="showAbout()"><img src="首页资源/portrait-web.png" alt=""><span class="about-nav-label">关于我</span><span>↗</span></button></nav>
+</header>
+<p class="adam-hint">点击认识亚当先生</p>
+<button id="cb" aria-label="认识亚当先生，查看人类之子项目" aria-haspopup="dialog"><span class="adam-glow" aria-hidden="true"></span></button>
+<footer class="home-dock">
+<div class="dock-intro"><span class="feature-label">HANYU BI · SELECTED WORKS</span><h1>portfolio<span>视觉设计作品集</span></h1></div><div class="featured-film"><span>正在放映 · AIGC 短片</span><strong>人类之子 <small>Children of Men</small></strong></div>
+<div class="dock-actions"><button class="feature-button" onclick="showProject()">走进他的故事 <span>↗</span></button><button id="playToggle" class="play-toggle" aria-label="暂停封面视频">暂停画面</button></div>
+</footer>
+<p id="videoStatus" class="video-status" role="status" hidden>视频暂时无法播放，你仍可进入项目或浏览目录。</p>
+</main>
+<div id="ov"></div>
+<button class="cl" onclick="ca()" aria-label="关闭弹窗">×</button>
+<nav id="dr" role="dialog" aria-modal="true" aria-label="作品目录" inert>
+<h2>作品 / Work</h2>
+<a class="ni bold" href="project1.html"><span class="nn">01/</span> &lt;人类之子&gt; AIGC短片</a>
+<a class="ni" href="project2.html"><span class="nn">02/</span>妙斋果酒品牌</a>
+<a class="ni" href="project3.html"><span class="nn">03/</span>羽境FEALAND<span class="ni-sub">壮锦&amp;配饰品牌</span></a>
+<a class="ni" href="project4new/index.html"><span class="nn">04/</span>IDENTIFIER卡牌游戏</a>
+<a class="ni" href="project5/index.html"><span class="nn">05/</span>luminova 幻想诺娃<span class="ni-sub">情绪陪伴 IP · 3D 交互设计</span></a>
+</nav>
+<aside id="pp" inert>
+<div class="av"><img src="首页资源/portrait-web.png" alt="毕涵昱"></div>
+<div class="nm">毕涵昱</div>
+<div class="tt">VISUAL DESIGNER</div>
+<button class="cbtn" onclick="showAbout()">关于我</button>
+</aside>
+<div id="jp" role="dialog" aria-modal="true" aria-label="人类之子项目预览" inert>
+<div class="project-heading"><span>AIGC 短片</span><h2>人类之子</h2><p>你刚刚遇见了亚当先生。现在，走进他的故事。</p></div>
+<div class="card"><img src="首页资源/海报.jpg" alt="人类之子海报"></div>
+<a href="project1.html" class="project-entry">查看完整项目 <span>↗</span></a>
+</div>
+<div id="about" role="dialog" aria-modal="true" aria-label="关于毕涵昱" inert>
+<button class="back-btn" onclick="closeAbout()" aria-label="返回首页">&times;</button>
+<div class="about-bg"></div>
+<canvas id="liquid-canvas"></canvas>
+<div class="about-content">
+<div class="about-left">
+<div class="about-photo"><img src="首页资源/portrait-web.png" alt="毕涵昱"></div>
+<div class="about-kicker">Visual Designer</div>
+<div class="about-name"><span class="text-tail">毕涵昱</span></div>
+<div class="about-name-en">Hanyu Bi</div>
+<div class="about-role"><span>AIGC、影视<span class="text-tail">短片剪辑</span></span><span>品牌视觉与 IP 设计</span></div>
+<div class="about-desc">善于主动拆解需求，以创意回应真实问题。持续追踪 AI Agent 与生成式创作工具，并将学习、测试、复盘沉淀为可执行的<span class="text-tail">设计方法。</span></div>
+<div class="about-contact"><span>WeChat&nbsp;&nbsp;S18604282689</span><a href="mailto:3324843932@qq.com">3324843932@qq.com</a></div>
+</div>
+<div class="about-right">
+<header class="about-intro"><h2><span class="intro-line">视觉设计<span class="text-tail">与影像，</span></span><span class="intro-line"><span class="text-tail">也做</span></span><strong class="intro-line">可交互<span class="text-tail">的作品。</span></strong></h2><p>我的实践横跨品牌、影像、IP 与电商视觉。现在，我正进一步把 AIGC 与 Vibe Coding 纳入工作流，让想法更快被验证，也让设计从静态画面延伸到<span class="text-tail">真实交互。</span></p></header>
+<section class="about-section"><h3>AI 与<span class="text-tail">创作能力</span></h3><div class="focus-grid"><article class="focus-card primary"><span class="focus-mark">AIGC Exploration</span><h4>用 AI 扩展设计与影像的<span class="text-tail">生产边界</span></h4><p>自主测试国内外前沿模型与提示词工作流，覆盖 AI 生图、AI 影视创作和 Agent 辅助设计。京东京造实习中，相关方法带来商品主图最高周点击率增长 230%。</p></article><article class="focus-card"><span class="focus-mark">Vibe Coding</span><h4>把概念做成可交<span class="text-tail">互的网页</span></h4><p>借助 AI 协作完成前端原型与作品集体验，快速连接视觉设计、动效和<span class="text-tail">交互验证。</span></p></article><article class="focus-card"><span class="focus-mark">Visual Practice</span><h4>品牌、影像与 IP</h4><p>从策略、视觉语言到三维拓展，保持跨媒介的<span class="text-tail">一致表达。</span></p></article></div><div class="skill-cloud"><span class="skill-chip emphasis">AIGC</span><span class="skill-chip emphasis">Vibe Coding</span><span class="skill-chip">Photoshop</span><span class="skill-chip">Illustrator</span><span class="skill-chip">InDesign</span><span class="skill-chip">Premiere</span><span class="skill-chip">Blender</span><span class="skill-chip">Figma</span><span class="skill-chip">Sketch</span><span class="skill-chip"><span class="text-tail">手绘插画</span></span><span class="skill-chip">剪映</span></div></section>
+<section class="about-section"><h3><span class="text-tail">教育背景</span></h3><div class="edu-block"><div><div class="edu-school"><span class="text-tail">东华大学</span></div><div class="edu-major">视觉<span class="text-tail">传达设计</span></div></div><div class="edu-year">2023-2027<span class="edu-degree">本科</span></div><div class="edu-stats"><div class="edu-stat"><b>3.92</b><span>GPA</span></div><div class="edu-stat"><b>前 30%</b><span><span class="text-tail">专业排名</span></span></div><div class="edu-stat"><b>CET6 500+</b><span>具备中英双语办公与日常<span class="text-tail">交流能力</span></span></div></div></div></section>
+<section class="about-section"><h3><span class="text-tail">实习经历</span></h3><div class="timeline"><article class="exp-item"><div class="exp-header"><div class="exp-company">京东<span class="exp-role">京东京造自有品牌电<span class="text-tail">商设计师</span></span></div><time class="exp-time">26.6-26.8</time></div><div class="exp-desc"><p><strong>AI <span class="text-tail">商详优化：</span></strong>自主测试并总结提示词，以 AI 生图替换原有商品主图，用户点击率最高周增长 230%。</p><p><strong>全<span class="text-tail">流程推广：</span></strong>协助新品拍摄、后期修图、商详文案、电商设计制<span class="text-tail">作与发布。</span></p></div></article><article class="exp-item"><div class="exp-header"><div class="exp-company">上海岩芯数智人工智能科技<span class="text-tail">有限公司</span><span class="exp-role"><span class="text-tail">设计师</span></span></div><time class="exp-time">25.6-25.9</time></div><div class="exp-desc"><p><strong>世界人工<span class="text-tail">智能大会：</span></strong>参与公司 IP 形象与系列衍生物料设计，亮相 WAIC 并获央视等<span class="text-tail">媒体曝光。</span></p><p><strong>IP <span class="text-tail">视觉拓展：</span></strong>独立完成 20+ 款已上线表情包，并制作 IP 3D 模型，完成从二维到三<span class="text-tail">维的延展。</span></p></div></article><article class="exp-item"><div class="exp-header"><div class="exp-company">上海思悟品牌设计<span class="text-tail">有限公司</span><span class="exp-role">品<span class="text-tail">牌设计师</span></span></div><time class="exp-time">24.6-24.7</time></div><div class="exp-desc"><p><strong>品牌<span class="text-tail">形象设计：</span></strong>参与 PTG 高尔夫、超港面包品牌设计、头脑风暴与 VI <span class="text-tail">手册制作。</span></p><p><strong>VI <span class="text-tail">体系优化：</span></strong>结合用户痛点、潮流文化与品牌需求，改善品牌适配的<span class="text-tail">视觉风格。</span></p></div></article><article class="exp-item"><div class="exp-header"><div class="exp-company">大连市人民政府新闻办公室官<span class="text-tail">方公众号</span><span class="exp-role"><span class="text-tail">美术编辑</span></span></div><time class="exp-time">24.1-24.2</time></div><div class="exp-desc"><p>负责微信公众号《大连发布》的长图文图片、海报与<span class="text-tail">版头设计。</span></p></div></article></div></section>
+<section class="about-section"><h3><span class="text-tail">获奖经历</span></h3><div class="awards-grid"><article class="award-item featured"><div class="award-title">第18届全国大学生广告<span class="text-tail">艺术大赛</span></div><div class="award-result">金奖</div><div class="award-level"><span class="text-tail">省部级</span></div><div class="award-date">2026.6</div></article><article class="award-item featured"><div class="award-title">2026 米<span class="text-tail">兰设计周</span></div><div class="award-result"><span class="text-tail">二等奖</span></div><div class="award-level"><span class="text-tail">省部级</span></div><div class="award-date">2026.5</div></article><article class="award-item"><div class="award-title">东华大学学科竞赛单<span class="text-tail">项奖学金</span></div><div class="award-result"><span class="text-tail">三等奖</span></div><div class="award-level">校级</div><div class="award-date">2026.1</div></article><article class="award-item"><div class="award-title">中国包装创意<span class="text-tail">设计大赛</span></div><div class="award-result"><span class="text-tail">优秀奖</span></div><div class="award-level"><span class="text-tail">国家级</span></div><div class="award-date">2025.8</div></article><article class="award-item"><div class="award-title">东华大学文娱活动优胜<span class="text-tail">奖奖学金</span></div><div class="award-result"></div><div class="award-level">校级</div><div class="award-date">2025.8</div></article><article class="award-item"><div class="award-title">第13届未来设计师 NCDA 大赛</div><div class="award-result"><span class="text-tail">三等奖</span></div><div class="award-level"><span class="text-tail">省部级</span></div><div class="award-date">2025.6</div></article><article class="award-item"><div class="award-title">上海国际大学<span class="text-tail">生广告节</span><br>《数字人民币，支付无界限》<span class="text-tail">设计类</span></div><div class="award-result"><span class="text-tail">二等奖</span></div><div class="award-level"><span class="text-tail">省部级</span></div><div class="award-date">2024.12</div></article><article class="award-item"><div class="award-title">上海国际大学<span class="text-tail">生广告节</span><br>《数字人民币，支付无界限》<span class="text-tail">策划类</span></div><div class="award-result"><span class="text-tail">三等奖</span></div><div class="award-level"><span class="text-tail">省部级</span></div><div class="award-date">2024.12</div></article><article class="award-item"><div class="award-title">2024 喀什上海嘉年华文创<span class="text-tail">设计大赛</span></div><div class="award-result"><span class="text-tail">三等奖</span></div><div class="award-level">校级</div><div class="award-date">2024.8</div></article></div></section>
+</div>
+</div>
+</div>
+<script src="home.js"></script>
+<script src="portfolio-ripple.js" defer></script>
+</body>
+</html>

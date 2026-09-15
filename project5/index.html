@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#163de0"><meta name="description" content="luminova 幻想诺娃，毕涵昱的情绪陪伴 IP 与 3D 交互设计。由情绪出发，探索角色形态、手势唤醒与实体原型。">
+<title>luminova 幻想诺娃 · 让情绪有形，让陪伴发生</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="../portfolio-directory.css"><script defer src="script.js"></script>
+<link rel="stylesheet" href="../portfolio-unified.css">
+</head>
+<body data-emotion="peace"><a class="skip" href="#intro">跳至项目介绍</a>
+<header class="nav"><a class="wordmark" href="#home" aria-label="luminova 首页"><svg width="32" height="32" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M60 120C26.8629 120 0 93.1371 0 60V0C22.5654 0 42.2213 12.4569 52.4662 30.8691C38.4788 34.2089 28.0787 46.7902 28.0787 61.8006V63.1443C28.0787 79.9648 41.7146 93.6006 58.5353 93.6006H59.8789L59.8785 61.8006C59.8785 79.3633 74.1159 93.6006 91.6787 93.6006L91.6787 61.8006C91.6787 44.2783 77.5071 30.0661 60 30.0008L60 0H62.5352C94.2722 0 120 25.7279 120 57.4648V60C120 93.1371 93.1371 120 60 120Z" fill="currentColor"/></svg><span>luminova</span></a><nav aria-label="主导航"><a href="#characters">情绪图鉴</a><a href="#ritual">唤醒精灵</a><a href="#design">设计故事</a></nav><a class="back-link" href="../index.html">返回作品集 ↗</a></header>
+<main>
+<section class="hero" id="home" aria-labelledby="hero-title">
+<div class="emotion-background" aria-hidden="true"><div data-sky="peace"></div><div data-sky="worried"></div><div data-sky="anxiety"></div><div data-sky="chaos"></div></div>
+<div class="pointer-ripples" aria-hidden="true"></div>
+<div class="hero-copy"><p class="eyebrow">幻想诺娃 · 情绪陪伴 IP</p><h1 id="hero-title">luminova</h1><p class="hero-description">让情绪有形，让陪伴发生。</p><a class="hero-link" href="#ritual">体验手势唤醒 ↗</a></div>
+      <div class="stage" id="stage" aria-label="LumiNova 三维角色展厅">
+        <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
+        <div id="model-viewport" role="img" aria-label="静静的三维模型，可用下方按钮旋转"></div>
+        <div class="model-status" id="model-status" role="status">正在唤醒静静…</div>
+        <button id="retry-model" class="button retry" hidden>重新载入</button>
+        <div class="model-caption"><span id="model-number">01 / 04</span><span><strong id="model-name">Peace</strong> <span id="model-cn">静静</span></span></div>
+        <div class="model-tools" aria-label="模型控制">
+          <button id="rotate-left" aria-label="向左旋转模型">↶</button>
+          <button id="auto-rotate" aria-label="切换自动旋转" aria-pressed="false">自动旋转</button>
+          <button id="rotate-right" aria-label="向右旋转模型">↷</button>
+          <button id="reset-view" aria-label="恢复模型初始视角">复位</button>
+        </div>
+        <label class="zoom-control">视距 <input id="model-zoom" type="range" min="80" max="120" value="100" aria-label="模型显示大小"></label><p class="drag-hint">拖动旋转 · 松手后缓缓停下</p>
+      </div>
+      <div class="emotion-dock">
+        <div class="dock-label">此刻，你的心情是？<span>Choose your feeling</span></div>
+        <div class="emotion-options" role="group" aria-label="选择情绪角色">
+          <button data-select="peace" aria-pressed="true"><i class="swatch peace"></i><span>静静<small>Peace</small></span><b>01</b></button>
+          <button data-select="worried" aria-pressed="false"><i class="swatch worried"></i><span>忧忧<small>Worried</small></span><b>02</b></button>
+          <button data-select="anxiety" aria-pressed="false"><i class="swatch anxiety"></i><span>焦焦<small>Anxiety</small></span><b>03</b></button>
+          <button data-select="chaos" aria-pressed="false"><i class="swatch chaos"></i><span>恹恹<small>Chaos</small></span><b>04</b></button>
+        </div>
+      </div>
+
+</section>
+<section class="intro section" id="intro"><div class="intro-layout"><div><h2>以情绪为原型的陪伴精灵</h2><p class="intro-lead">幻想诺娃是一组面向年轻人的情绪陪伴精灵。项目将情绪映射为角色的色彩与形态，再通过可穿戴戒指构想，把陪伴带入日常。</p><p class="project-credit">毕涵昱 · 角色设计 / 3D 建模 / 交互概念</p></div><dl class="decisions"><div><dt>需要什么</dt><dd>私密、及时，且由自己掌控的情感回应。</dd></div><div><dt>如何表达</dt><dd>让冷暖色彩与圆锐轮廓，成为情绪的视觉语言。</dd></div><div><dt>怎样发生</dt><dd>按住唤醒角色，伸展手指结束，让控制权留在用户手中。</dd></div></dl></div><button class="board-image overview reveal" data-board="intro" data-title="幻想诺娃 · 角色介绍"><img src="images/intro.webp" width="2000" height="1072" loading="lazy" alt="四种精灵形态及角色草图，展示幻想诺娃的完整角色系统"></button></section>
+<section class="research section" id="research" aria-labelledby="research-title">
+<div class="section-heading"><h2 id="research-title">情绪陪伴需求调研</h2><p>前期调研从精神寄托方式与日常困扰出发，提炼出归属感、自我理解和及时回应三个方向。</p></div>
+<div class="research-grid">
+<figure class="research-chart"><figcaption>人们如何寻找精神寄托</figcaption><p class="chart-subtitle">原稿记录的五类方式 · 百分比</p><div class="research-bars">
+<div><span>社交媒体内容</span><meter aria-label="社交媒体内容" min="0" max="100" value="68">68%</meter><b>68%</b></div>
+<div><span>加入兴趣社群</span><meter aria-label="加入兴趣社群" min="0" max="100" value="52">52%</meter><b>52%</b></div>
+<div><span>养宠物</span><meter aria-label="养宠物" min="0" max="100" value="35">35%</meter><b>35%</b></div>
+<div><span>与 AI 互动</span><meter aria-label="与 AI 互动" min="0" max="100" value="29">29%</meter><b>29%</b></div>
+<div><span>玄学与疗愈</span><meter aria-label="玄学与疗愈" min="0" max="100" value="27">27%</meter><b>27%</b></div>
+</div><p class="caption">数值来自项目原稿，不构成合计占比；原稿未附样本量、统计口径及完整出处，作为探索线索保留。</p></figure>
+<div class="interview-notes"><h3>访谈中的三个声音</h3><article><span>受访者 A · 17 岁</span><h4>日常困扰与归属感</h4><p>回避情绪问题、缺少明确兴趣。设计回应：建立容易亲近、持续可辨认的角色。</p></article><article><span>受访者 B · 19 岁</span><h4>自我评价与外部压力</h4><p>缺乏自信，希望获得理解。设计回应：接纳四种情绪，不以“好坏”评价用户。</p></article><article><span>受访者 C · 24 岁</span><h4>学业压力与及时回应</h4><p>缺少放松时间，期待需要时出现。设计回应：用按住唤醒缩短交互路径。</p></article><p class="caption">依据原稿访谈摘要整理，不能代表整体人群。</p></div>
+</div>
+<details class="theory-notes" open><summary>理论如何转化为设计选择 <span>＋</span></summary><div class="theory-grid"><article><h3>集体无意识</h3><span>荣格 · 原稿理论视角</span><p>以共同的象征与精神寄托为切入点，将“神明的回应”转为易感知的精灵形象。</p><strong>设计落点：符号与角色认同。</strong></article><article><h3>液态现代性</h3><span>鲍曼 · 原稿理论视角</span><p>从不稳定关系中的归属需求出发，让四种情绪形态保持同一角色身份。</p><strong>设计落点：稳定、连续的陪伴。</strong></article><article><h3>意义与情感投射</h3><span>弗兰克尔与替代性依恋 · 原稿概念整理</span><p>为难以表达的情绪提供象征对象，让用户主动决定何时开始、何时结束。</p><strong>设计落点：情绪可视化与自主控制。</strong></article></div><p class="caption">以上为项目采用的理论视角及设计解读，不作为产品效果验证。</p></details>
+<button class="text-button" data-board="research" data-title="前期调研与理论 · 原始作品集资料">查看调研原稿 ↗</button>
+</section>
+<section class="characters section" id="characters"><div class="section-heading reveal"><h2>四种情绪，四个角色</h2><p>从静静到恹恹，色彩逐渐升温，轮廓逐渐张扬。选择角色，进入 3D 展厅。</p></div>
+      <div class="character-grid">
+        <article class="character-card reveal"><button class="character-image" data-jump="peace" aria-label="查看静静的三维模型"><img src="images/peace.webp" width="2000" height="1072" loading="lazy" alt="蓝色静静，水滴般的头发、珍珠头饰与圆润水晶球"></button><div class="character-text"><h3>Peace <small>静静</small></h3><p>把片刻的宁静，握在手心。</p></div></article>
+        <article class="character-card reveal"><button class="character-image" data-jump="worried" aria-label="查看忧忧的三维模型"><img src="images/worried.webp" width="2000" height="1072" loading="lazy" alt="紫色忧忧，卷曲头发与金色耳饰"></button><div class="character-text"><h3>Worried <small>忧忧</small></h3><p>那些还没有答案的事，也可以慢慢说。</p></div></article>
+        <article class="character-card reveal"><button class="character-image" data-jump="anxiety" aria-label="查看焦焦的三维模型"><img src="images/anxiety.webp" width="2000" height="1072" loading="lazy" alt="粉色焦焦，向上生长的触角与发光水晶"></button><div class="character-text"><h3>Anxiety <small>焦焦</small></h3><p>世界转得太快时，陪你慢下来。</p></div></article>
+        <article class="character-card reveal"><button class="character-image" data-jump="chaos" aria-label="查看恹恹的三维模型"><img src="images/chaos.webp" width="2000" height="1072" loading="lazy" alt="橙金色恹恹，火焰形头发与尖锐头饰"></button><div class="character-text"><h3>Chaos <small>恹恹</small></h3><p>即使心里一片混乱，你也不必独自面对。</p></div></article>
+      </div>
+
+</section>
+<section class="design section" id="design"><div class="section-heading reveal"><h2>角色形态的设计推导</h2><p>以头发、头饰、耳饰、水晶球与尾巴为五组变量，将情绪转译为一套连续的造型语言。</p></div><div class="design-layout"><button class="board-image" data-board="evolution" data-title="情绪递接与零件拆解"><img src="images/evolution.webp" width="2000" height="1072" loading="lazy" alt="从冷蓝到暖橙的情绪色谱及五组角色零件演变"></button><div class="design-notes"><h3>轮廓与情绪的对应</h3><p>平静时，水滴、珍珠与柔和曲线建立亲近感；情绪增强时，卷曲、尖角与火焰轮廓让张力变得可见。</p><h3>四个角色的共同特征</h3><p>四种形态共享精灵姿态与怀抱水晶的动作，让用户始终认出同一位陪伴者。</p><button class="text-button" data-board="anatomy" data-title="角色构思、线稿与三维建模">展开线稿与建模过程 ↗</button></div></div><details class="process-detail"><summary>查看完整形态推演与三维建模 <span>＋</span></summary><button class="board-image" data-board="anatomy" data-title="角色构思、线稿与三维建模"><img src="images/anatomy.webp" width="2800" height="1120" loading="lazy" alt="角色外观情绪系统、Dingir 符号、设计线稿及前侧背模型视图"></button></details></section>
+<section class="ritual section" id="ritual">      <div class="ritual-copy reveal"><h2>按住唤醒：交互演示</h2><p>按住唤醒，松开可取消。完成后，精灵会回应你。</p><p class="ritual-note">概念交互体验 · 当前情绪：<span id="ritual-emotion">静静</span></p></div>
+      <div class="ritual-space">
+        <img class="ritual-character" id="ritual-character" src="images/peace.webp" width="2000" height="1072" loading="lazy" alt="静静的角色渲染"><div class="ritual-ripple" aria-hidden="true"></div>
+        <button id="summon" class="summon" aria-label="按住两秒或长按空格键唤醒精灵；按回车键自动唤醒"><span class="summon-star">✳</span><span id="summon-label">按住，唤醒</span></button>
+        <p id="ritual-response" role="status">留一点时间，给自己。</p>
+        <button id="ritual-reset" class="text-button" hidden>结束相伴 ↗</button>
+      </div>
+
+</section>
+<section class="outcomes section" id="outcomes"><div class="section-heading reveal"><h2>可穿戴戒指与使用流程</h2><p>戒指是交互入口，精灵是情绪回应。原型佩戴照片与投影情境图，共同说明设计如何融入生活。</p></div><ol class="journey"><li><span>01</span><h3>感知</h3><p>以心跳、体温变化作为情绪映射的概念输入。</p></li><li><span>02</span><h3>唤醒</h3><p>按住戒指侧面，主动发起陪伴。</p></li><li><span>03</span><h3>相伴</h3><p>对应形态的精灵出现，给予可见的回应。</p></li><li><span>04</span><h3>结束</h3><p>伸展手指，结束投影，回到日常。</p></li></ol><button class="board-image outcome-board reveal" data-board="gesture-outcome" data-title="手势控制、原型佩戴与投影情境"><img src="images/gesture-outcome.webp" width="2800" height="1120" loading="lazy" alt="按住与伸展手指的戒指手势、3D 打印原型佩戴照片，以及平静和混乱状态的投影情境"></button><p class="caption">实物制作与佩戴记录见上图；生理感知与角色投影为概念设想，网页演示不采集身体数据。</p></section>
+<section class="world" aria-label="精灵世界"><img src="images/world.webp" width="2000" height="1072" loading="lazy" alt="四位精灵围绕发光湖泊，栖居于蘑菇与繁花之间"><div class="world-copy"><p>每一种情绪，都值得被看见。</p><h2>A feeling.<br>A little light.</h2></div></section>
+<section class="portfolio-project-directory" aria-labelledby="project-directory-title-5"><div class="portfolio-project-directory__inner"><div class="portfolio-project-directory__heading"><h2 id="project-directory-title-5">作品目录</h2><span>SELECT ANOTHER PROJECT</span></div><nav class="portfolio-project-directory__grid" aria-label="其他作品"><a class="portfolio-project-directory__item" href="../project1.html"><span class="portfolio-project-directory__number">01</span><strong class="portfolio-project-directory__name">人类之子·AIGC短片</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project2.html"><span class="portfolio-project-directory__number">02</span><strong class="portfolio-project-directory__name">妙斋果酒品牌</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project3.html"><span class="portfolio-project-directory__number">03</span><strong class="portfolio-project-directory__name">羽境 FEALAND</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="../project4new/index.html"><span class="portfolio-project-directory__number">04</span><strong class="portfolio-project-directory__name">IDENTIFIER 卡牌游戏</strong><span class="portfolio-project-directory__arrow">↗</span></a><a class="portfolio-project-directory__item" href="index.html" aria-current="page"><span class="portfolio-project-directory__number">05</span><strong class="portfolio-project-directory__name">LUMINOVA 疗愈IP设计</strong><span class="portfolio-project-directory__arrow">↗</span></a></nav></div></section></main><footer><a class="wordmark" href="#home">luminova</a><p>幻想诺娃 · 毕涵昱<br>IP 设计 / 3D 交互设计</p><a href="#home">回到首页 ↑</a></footer>
+  <dialog id="board-dialog" aria-labelledby="board-title"><div class="dialog-bar"><h2 id="board-title"></h2><button id="close-dialog" class="button">关闭 ×</button></div><img id="board-image" alt=""><p>原始作品集资料 · 可双指缩放查看细节</p></dialog>
+<noscript><p class="noscript">启用 JavaScript 可旋转角色并体验唤醒；作品图片和项目内容仍可阅读。</p></noscript><script src="../portfolio-ripple.js" defer></script>
+</body></html>

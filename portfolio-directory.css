@@ -1,0 +1,166 @@
+.portfolio-project-directory,
+.portfolio-project-directory * {
+  box-sizing: border-box;
+}
+
+.portfolio-project-directory {
+  --directory-bg: #f2f1ed;
+  --directory-ink: #151515;
+  --directory-muted: rgba(21, 21, 21, 0.55);
+  --directory-line: rgba(21, 21, 21, 0.2);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 72px);
+  color: var(--directory-ink);
+  background: var(--directory-bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  font-style: normal;
+  text-align: left;
+  isolation: isolate;
+}
+
+.portfolio-project-directory--dark {
+  --directory-bg: #111;
+  --directory-ink: #f5f4ef;
+  --directory-muted: rgba(245, 244, 239, 0.52);
+  --directory-line: rgba(245, 244, 239, 0.2);
+}
+
+.portfolio-project-directory__inner {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+}
+
+.portfolio-project-directory__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: clamp(28px, 4vw, 52px);
+}
+
+.portfolio-project-directory__heading h2 {
+  margin: 0;
+  color: inherit;
+  font: 500 clamp(24px, 3.2vw, 48px)/1.1 inherit;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+.portfolio-project-directory__heading span {
+  color: var(--directory-muted);
+  font: 500 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.portfolio-project-directory__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--directory-line);
+}
+
+.portfolio-project-directory__item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 92px;
+  margin: 0;
+  padding: 18px 20px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--directory-line);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.portfolio-project-directory__item:nth-child(odd) {
+  border-right: 1px solid var(--directory-line);
+}
+
+.portfolio-project-directory__number {
+  color: var(--directory-muted);
+  font: 500 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+}
+
+.portfolio-project-directory__name {
+  min-width: 0;
+  color: inherit;
+  font: 500 clamp(15px, 1.4vw, 20px)/1.35 inherit;
+  letter-spacing: 0;
+}
+
+.portfolio-project-directory__arrow {
+  color: var(--directory-muted);
+  font: 400 18px/1 inherit;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+a.portfolio-project-directory__item:hover,
+a.portfolio-project-directory__item:focus-visible {
+  color: var(--directory-bg);
+  background: var(--directory-ink);
+  outline: none;
+}
+
+a.portfolio-project-directory__item:hover .portfolio-project-directory__number,
+a.portfolio-project-directory__item:hover .portfolio-project-directory__arrow,
+a.portfolio-project-directory__item:focus-visible .portfolio-project-directory__number,
+a.portfolio-project-directory__item:focus-visible .portfolio-project-directory__arrow {
+  color: currentColor;
+}
+
+a.portfolio-project-directory__item:hover .portfolio-project-directory__arrow,
+a.portfolio-project-directory__item:focus-visible .portfolio-project-directory__arrow {
+  transform: translate(3px, -3px);
+}
+
+.portfolio-project-directory__item[aria-current="page"] {
+  box-shadow: inset 4px 0 0 currentColor;
+}
+
+.portfolio-project-directory__item--unavailable {
+  color: var(--directory-muted);
+  cursor: default;
+}
+
+.portfolio-project-directory__item--unavailable .portfolio-project-directory__arrow {
+  font: 500 11px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .portfolio-project-directory__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portfolio-project-directory__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-project-directory__item:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .portfolio-project-directory__item {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    min-height: 76px;
+    padding-inline: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-project-directory__item,
+  .portfolio-project-directory__arrow {
+    transition: none;
+  }
+}
