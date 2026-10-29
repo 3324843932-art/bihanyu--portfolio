@@ -1,0 +1,8 @@
+/*.webp
+  Cache-Control: public, max-age=604800
+
+/miaozai-assets/*.webp
+  Cache-Control: public, max-age=604800
+
+/miaozai-assets/favicon.png
+  Cache-Control: public, max-age=604800

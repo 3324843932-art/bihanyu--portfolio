@@ -6,7 +6,7 @@
 <title>妙斋果酒品牌 | MIAOZAI</title>
 <meta name="description" content="毕涵昱的妙斋果酒品牌设计：从微醺美学、彩色波点到三色妙兔，探索一套鲜活的品牌与包装系统。">
 <meta name="theme-color" content="#2448de">
-<link rel="icon" href="miaozai-assets/rabbit-blue.png">
+<link rel="icon" type="image/png" sizes="64x64" href="miaozai-assets/favicon.png">
 <link rel="stylesheet" href="miaozai-assets/miaozai.css">
 <link rel="stylesheet" href="portfolio-directory.css">
 <script src="miaozai-assets/miaozai.js" defer></script>
@@ -42,9 +42,9 @@
 <div class="flavor-disc" aria-hidden="true"></div>
 <span class="hero-pop" aria-hidden="true">POP!</span>
 <div class="cans-container" aria-label="点击开罐，切换口味">
-<button class="can-item" data-flavor="blueberry" aria-label="打开蓝莓味" aria-pressed="true"><img src="can-blueberry.png" width="840" height="2048" alt="蓝莓味妙斋易拉罐" class="can-img" fetchpriority="high"><span class="can-label">蓝莓</span></button>
-<button class="can-item" data-flavor="strawberry" aria-label="打开草莓味" aria-pressed="false"><img src="can-strawberry.png" alt="草莓味妙斋易拉罐" class="can-img" fetchpriority="high"><span class="can-label">草莓</span></button>
-<button class="can-item" data-flavor="lemon" aria-label="打开柠檬味" aria-pressed="false"><img src="can-lemon.png" alt="柠檬味妙斋易拉罐" class="can-img" fetchpriority="high"><span class="can-label">柠檬</span></button>
+<button class="can-item" data-flavor="blueberry" aria-label="打开蓝莓味" aria-pressed="true"><img src="can-blueberry.webp" width="574" height="1400" alt="蓝莓味妙斋易拉罐" class="can-img" fetchpriority="high" decoding="async"><span class="can-label">蓝莓</span></button>
+<button class="can-item" data-flavor="strawberry" aria-label="打开草莓味" aria-pressed="false"><img src="can-strawberry.webp" width="574" height="1400" alt="草莓味妙斋易拉罐" class="can-img" fetchpriority="low" decoding="async"><span class="can-label">草莓</span></button>
+<button class="can-item" data-flavor="lemon" aria-label="打开柠檬味" aria-pressed="false"><img src="can-lemon.webp" width="574" height="1400" alt="柠檬味妙斋易拉罐" class="can-img" fetchpriority="low" decoding="async"><span class="can-label">柠檬</span></button>
 </div>
 <div class="hero-feedback"><span class="small-cross" aria-hidden="true">✳</span><p id="flavor-feedback" aria-live="polite">碰一碰罐身，打开今天的好心情。</p><span class="instruction">移动鼠标拨动 · 点击开罐</span></div>
 </div>
@@ -61,7 +61,7 @@
 <section class="visual-system section-wrap" id="visual-system">
 <header class="section-heading reveal"><p class="eyebrow">THE VISUAL RECIPE</p><h2>网点水果与视觉系统</h2><p>把水果拆成错位的彩色网点。保留果实轮廓，也让印刷颗粒成为妙斋的视觉记忆。</p></header>
 <div class="halftone-lab reveal">
-<div class="halftone-view"><img id="halftone-image" src="miaozai-assets/halftone-blue.png" width="1024" height="1024" alt="蓝莓彩色网点图案" loading="lazy"></div>
+<div class="halftone-view"><img id="halftone-image" src="miaozai-assets/halftone-blue.webp" width="1024" height="1024" alt="蓝莓彩色网点图案" loading="lazy" decoding="async"></div>
 <div class="lab-controls"><span class="lab-label">波点观察室</span><h3>蓝莓的网点实验</h3><p id="lab-description">蓝、粉与明亮的黄错位叠印，让平面的果实有了跳动的节奏。</p><div class="flavor-switch" role="group" aria-label="选择波点水果"><button data-lab="blueberry" aria-pressed="true">蓝莓</button><button data-lab="strawberry" aria-pressed="false">草莓</button><button data-lab="lemon" aria-pressed="false">柠檬</button></div><label class="zoom-label" for="dot-zoom">拉近一点，看看网点 <output id="zoom-value">1.0×</output></label><input id="dot-zoom" type="range" min="1" max="3" step="0.1" value="1"><div class="zoom-ends"><span>水果轮廓</span><span>网点细节</span></div></div>
 </div>
 <div class="visual-notes"><article><h3>像素字体</h3><p>方折笔画与重复排布，让“妙斋妙斋”像一句带节奏的招呼。与圆形网点形成方与圆的对照。</p></article><article><h3>品牌色与风味识别</h3><p>蓝莓蓝、草莓粉、柠檬黄贯穿产品与角色；大面积纯色给繁密网点留出呼吸。</p></article></div>
@@ -71,14 +71,14 @@
 <section class="rabbit-club" id="rabbit-club">
 <div class="section-wrap"><header class="section-heading reveal"><h2>妙兔角色设计</h2><p>相同的长耳、眼镜与扇形元素，生出三种性格。点击妙兔，选一种今天的状态。</p></header>
 <div class="rabbit-lineup" role="group" aria-label="选择妙兔心情">
-<button class="rabbit-choice blue" data-rabbit="blueberry" aria-pressed="true"><span class="rabbit-name">蓝妙兔<small>通透 / BLUEBERRY</small></span><img src="miaozai-assets/rabbit-blue.png" alt="戴眼镜、手持蓝色扇子的蓝妙兔" width="1548" height="1600" loading="lazy"><span class="rabbit-mood">给自己一点空间 ↗</span></button>
-<button class="rabbit-choice pink" data-rabbit="strawberry" aria-pressed="false"><span class="rabbit-name">红妙兔<small>鲜活 / STRAWBERRY</small></span><img src="miaozai-assets/rabbit-red.png" alt="粉色长耳、手持撞色扇子的红妙兔" width="1792" height="1389" loading="lazy"><span class="rabbit-mood">今天，尽兴一点 ↗</span></button>
-<button class="rabbit-choice yellow" data-rabbit="lemon" aria-pressed="false"><span class="rabbit-name">黄妙兔<small>自在 / LEMON</small></span><img src="miaozai-assets/rabbit-yellow.png" alt="黄色脸颊、绿色长耳的黄妙兔" width="1600" height="1567" loading="lazy"><span class="rabbit-mood">把时间慢下来 ↗</span></button>
+<button class="rabbit-choice blue" data-rabbit="blueberry" aria-pressed="true"><span class="rabbit-name">蓝妙兔<small>通透 / BLUEBERRY</small></span><img src="miaozai-assets/rabbit-blue.webp" alt="戴眼镜、手持蓝色扇子的蓝妙兔" width="1064" height="1100" loading="lazy" decoding="async"><span class="rabbit-mood">给自己一点空间 ↗</span></button>
+<button class="rabbit-choice pink" data-rabbit="strawberry" aria-pressed="false"><span class="rabbit-name">红妙兔<small>鲜活 / STRAWBERRY</small></span><img src="miaozai-assets/rabbit-red.webp" alt="粉色长耳、手持撞色扇子的红妙兔" width="1100" height="853" loading="lazy" decoding="async"><span class="rabbit-mood">今天，尽兴一点 ↗</span></button>
+<button class="rabbit-choice yellow" data-rabbit="lemon" aria-pressed="false"><span class="rabbit-name">黄妙兔<small>自在 / LEMON</small></span><img src="miaozai-assets/rabbit-yellow.webp" alt="黄色脸颊、绿色长耳的黄妙兔" width="1100" height="1078" loading="lazy" decoding="async"><span class="rabbit-mood">把时间慢下来 ↗</span></button>
 </div>
 <div class="mood-note" aria-live="polite"><span>今日妙签</span><p id="mood-copy">不必每一刻都热闹。留一点空白，也很妙。</p><span id="mood-name">蓝妙兔 / 通透</span></div>
 <figure class="artwork rabbit-original reveal"><button class="image-open" aria-label="放大三色妙兔设计原稿"><img src="33.jpg" width="1920" height="1080" alt="蓝妙兔、红妙兔、黄妙兔性格设定原稿" loading="lazy"></button><figcaption>三色妙兔的角色设定与情绪表达</figcaption></figure>
 </div></section>
-<div class="brand-strip"><div class="marquee-track"><img src="横条.png" alt="妙斋品牌图形横条" loading="lazy"><img src="横条.png" alt="" aria-hidden="true" loading="lazy"></div><button class="motion-toggle" aria-pressed="false">暂停图形流动</button></div>
+<div class="brand-strip"><div class="marquee-track"><img src="横条.webp" width="1600" height="232" alt="妙斋品牌图形横条" loading="lazy" decoding="async"><img src="横条.webp" width="1600" height="232" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><button class="motion-toggle" aria-pressed="false">暂停图形流动</button></div>
 <section class="packaging section-wrap" id="packaging">
 <header class="section-heading reveal"><h2>包装结构与应用</h2><p>罐身用色彩和水果快速识别口味；瓶标延续同一套语言；兔耳成为手提盒的造型与提手，让角色从平面走进结构。</p></header>
 <div class="package-boards">

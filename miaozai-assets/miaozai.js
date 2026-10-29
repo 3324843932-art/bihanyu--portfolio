@@ -5,9 +5,9 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
   const flavors = {
-    blueberry: {name:'蓝莓', fruit:'一颗蓝莓的', color:'#4b85ef', disc:'#f4f62c', mood:'不必每一刻都热闹。留一点空白，也很妙。', rabbit:'蓝妙兔 / 通透', feedback:'蓝莓已开罐。给今天留一点轻盈。', image:'halftone-blue.png'},
-    strawberry: {name:'草莓', fruit:'一颗草莓的', color:'#fa368f', disc:'#ffc8df', mood:'把喜欢说出来，把今天过得鲜活一点。', rabbit:'红妙兔 / 鲜活', feedback:'草莓已开罐。今天，尽兴一点。', image:'halftone-strawberry.png'},
-    lemon: {name:'柠檬', fruit:'一颗柠檬的', color:'#f4f62c', disc:'#d0e2ff', mood:'慢一点也没关系。按自己的节奏，刚刚好。', rabbit:'黄妙兔 / 自在', feedback:'柠檬已开罐。把时间慢下来。', image:'halftone-lemon.png'}
+    blueberry: {name:'蓝莓', fruit:'一颗蓝莓的', color:'#4b85ef', disc:'#f4f62c', mood:'不必每一刻都热闹。留一点空白，也很妙。', rabbit:'蓝妙兔 / 通透', feedback:'蓝莓已开罐。给今天留一点轻盈。', image:'halftone-blue.webp'},
+    strawberry: {name:'草莓', fruit:'一颗草莓的', color:'#fa368f', disc:'#ffc8df', mood:'把喜欢说出来，把今天过得鲜活一点。', rabbit:'红妙兔 / 鲜活', feedback:'草莓已开罐。今天，尽兴一点。', image:'halftone-strawberry.webp'},
+    lemon: {name:'柠檬', fruit:'一颗柠檬的', color:'#f4f62c', disc:'#d0e2ff', mood:'慢一点也没关系。按自己的节奏，刚刚好。', rabbit:'黄妙兔 / 自在', feedback:'柠檬已开罐。把时间慢下来。', image:'halftone-lemon.webp'}
   };
   function burst(target, flavor) {
     if (reduced.matches) return;
